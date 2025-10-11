@@ -23,8 +23,8 @@ export function AnonymousFooter() {
                         <h4 className="text-sm font-semibold mb-3 text-foreground">Liens utiles</h4>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><a href="#" className="hover:text-foreground transition-colors">Accueil</a></li>
-                            <li><a href="#" className="hover:text-foreground transition-colors">Fonctionnalités</a></li>
-                            <li><a href="contact" className="hover:text-foreground transition-colors">Nous contacter</a></li>
+                            <li><Link href="information" className="hover:text-foreground transition-colors">Qui somme nous ?</Link></li>
+                            <li><Link href="contact" className="hover:text-foreground transition-colors">Nous contacter</Link></li>
                             <li><Link href="newsletter" className="hover:text-foreground transition-colors">Notre newsletter</Link></li>
                         </ul>
                     </div>
