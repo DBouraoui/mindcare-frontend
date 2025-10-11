@@ -1,4 +1,3 @@
-"use client";
 
 import {CalendarCheck, Heart, Video, Activity} from "lucide-react";
 

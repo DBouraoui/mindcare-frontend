@@ -2,6 +2,7 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {Facebook, Linkedin} from "lucide-react"
+import Link from "next/link";
 
 export function AnonymousFooter() {
     return (
@@ -34,7 +35,7 @@ export function AnonymousFooter() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><a href="#" className="hover:text-foreground transition-colors">Documentation</a></li>
                             <li><a href="#" className="hover:text-foreground transition-colors">Conditions d’utilisation</a></li>
-                            <li><a href="#" className="hover:text-foreground transition-colors">Confidentialité</a></li>
+                            <li><Link href="confidentialite" className="hover:text-foreground transition-colors">Confidentialité</Link></li>
                         </ul>
                     </div>
 
