@@ -13,12 +13,7 @@ export default function Loading() {
 
                 {/* Bloc de contenu */}
                 <div className="space-y-4 mt-8">
-                    <Skeleton className="h-screen w-full rounded-xl" />
-                </div>
-
-                {/* CTA ou bas de page */}
-                <div className="flex justify-center mt-10">
-                    <Skeleton className="h-10 w-40 rounded-full" />
+                    <Skeleton className="h-[700px] w-full rounded-xl" />
                 </div>
             </div>
         </div>
