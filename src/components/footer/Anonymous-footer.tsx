@@ -36,6 +36,7 @@ export function AnonymousFooter() {
                             <li><Link href="cgv-cgu" className="hover:text-foreground transition-colors">CGV & CGU</Link></li>
                             <li><Link href="utilisation" className="hover:text-foreground transition-colors">Conditions d’utilisation</Link></li>
                             <li><Link href="confidentialite" className="hover:text-foreground transition-colors">Confidentialité</Link></li>
+                            <li><Link href="faq" className="hover:text-foreground transition-colors">Foire aux questions</Link></li>
                         </ul>
                     </div>
 
