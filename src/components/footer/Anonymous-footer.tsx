@@ -25,7 +25,7 @@ export function AnonymousFooter() {
                             <li><a href="#" className="hover:text-foreground transition-colors">Accueil</a></li>
                             <li><a href="#" className="hover:text-foreground transition-colors">Fonctionnalités</a></li>
                             <li><a href="#" className="hover:text-foreground transition-colors">À propos</a></li>
-                            <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+                            <li><Link href="newsletter" className="hover:text-foreground transition-colors">Notre newsletter</Link></li>
                         </ul>
                     </div>
 
