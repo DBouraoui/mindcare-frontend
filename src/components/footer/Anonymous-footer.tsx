@@ -34,7 +34,7 @@ export function AnonymousFooter() {
                         <h4 className="text-sm font-semibold mb-3 text-foreground">Ressources</h4>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><Link href="cgv-cgu" className="hover:text-foreground transition-colors">CGV & CGU</Link></li>
-                            <li><a href="#" className="hover:text-foreground transition-colors">Conditions d’utilisation</a></li>
+                            <li><Link href="utilisation" className="hover:text-foreground transition-colors">Conditions d’utilisation</Link></li>
                             <li><Link href="confidentialite" className="hover:text-foreground transition-colors">Confidentialité</Link></li>
                         </ul>
                     </div>
