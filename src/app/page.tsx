@@ -4,17 +4,20 @@ import {FeaturesSection} from "@/components/blocks/features-section";
 import {WorkflowSection} from "@/components/blocks/Workflow-section";
 import {PricingSection} from "@/components/blocks/Price-section";
 import {FaqSection} from "@/components/blocks/Faq-section";
+import {Suspense} from "react";
 
 
 export default function Home() {
     return (
    <div>
        <AnonymousLayout>
-           <HeroSection />
-           <FeaturesSection />
+        <Suspense>
+            <HeroSection />
+            <FeaturesSection />
             <WorkflowSection  />
-           <PricingSection />
-           <FaqSection />
+            <PricingSection />
+            <FaqSection />
+        </Suspense>
        </AnonymousLayout>
    </div>
   );
