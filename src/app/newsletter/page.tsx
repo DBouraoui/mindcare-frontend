@@ -3,19 +3,22 @@
 import { AnonymousLayout } from "@/components/layout/Anonymous-layout"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Suspense } from "react"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { CheckCircle2 } from "lucide-react"
+import { useMutation } from "@tanstack/react-query"
+import { createNewsLetter } from "@/api/Newsletter"
 
 export default function NewsletterPage() {
     const [email, setEmail] = useState("")
-    const [subscribed, setSubscribed] = useState(false)
+
+    const { mutate, isPending, isSuccess, error } = useMutation({
+        mutationFn: () => createNewsLetter(email),
+    })
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (email.trim()) {
-            setSubscribed(true)
-            setEmail("")
+            mutate()
         }
     }
 
@@ -32,7 +35,7 @@ export default function NewsletterPage() {
                         </p>
                     </div>
 
-                    {!subscribed ? (
+                    {!isSuccess ? (
                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                             <Input
                                 type="email"
@@ -42,8 +45,8 @@ export default function NewsletterPage() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="h-12 w-full sm:w-80"
                             />
-                            <Button type="submit" className="h-12 px-6">
-                                S’abonner
+                            <Button type="submit" disabled={isPending} className="h-12 px-6">
+                                {isPending ? "Envoi..." : "S’abonner"}
                             </Button>
                         </form>
                     ) : (
@@ -54,6 +57,12 @@ export default function NewsletterPage() {
                                 Vous recevrez bientôt votre première dose de sérénité dans votre boîte mail.
                             </p>
                         </div>
+                    )}
+
+                    {error && (
+                        <p className="text-red-500 mt-4">
+                            Une erreur est survenue. Veuillez réessayer plus tard.
+                        </p>
                     )}
 
                     <p className="text-sm text-muted-foreground mt-8">
