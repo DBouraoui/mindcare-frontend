@@ -1,10 +1,28 @@
+"use client"
+
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import {Facebook, Linkedin} from "lucide-react"
+import {CheckCircle2, Facebook, Linkedin, Loader2} from "lucide-react"
 import Link from "next/link";
+import {useState} from "react";
+import {useMutation} from "@tanstack/react-query";
+import {createNewsLetter} from "@/api/Newsletter";
 
 export function AnonymousFooter() {
+
+    const [email, setEmail] = useState("")
+
+    const { mutate, isSuccess, isPending } = useMutation({
+        mutationFn: () => createNewsLetter(email),
+    })
+
+    function submitEmail(e: React.FormEvent) {
+        e.preventDefault()
+        if (!email.trim()) return
+        mutate()
+    }
+
     return (
         <footer className="border-t bg-background pt-20">
             <div className="container mx-auto px-4 py-10">
@@ -46,16 +64,32 @@ export function AnonymousFooter() {
                         <p className="text-sm text-muted-foreground mb-3">
                             Recevez les dernières nouveautés et astuces directement dans votre boîte mail.
                         </p>
-                        <form className="flex gap-2">
-                            <Input
-                                type="email"
-                                placeholder="Votre email"
-                                className="flex-1"
-                            />
-                            <Button type="submit" variant="default">
-                                S’inscrire
-                            </Button>
-                        </form>
+
+                        {!isSuccess ? (
+                            <form className="flex gap-2" onSubmit={submitEmail}>
+                                <Input
+                                    type="email"
+                                    placeholder="Votre email"
+                                    className="flex-1"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    disabled={isPending}
+                                />
+                                <Button type="submit" variant="default" disabled={isPending}>
+                                    {isPending ? (
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "S’inscrire"
+                                    )}
+                                </Button>
+                            </form>
+                        ) : (
+                            <div className="flex items-center gap-2 text-green-600 mt-2">
+                                <CheckCircle2 className="h-5 w-5" />
+                                <p className="text-sm font-medium">Merci pour votre inscription !</p>
+                            </div>
+                        )}
                     </div>
                 </div>
 
