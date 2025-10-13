@@ -1,5 +1,7 @@
+import {BACKEND_URL} from "@/lib/utils";
+
 export const createNewsLetter = async (email: string) => {
-    const response = await fetch('http://localhost:8000/api/create-newsletter', {
+    const response = await fetch(`${BACKEND_URL}/create-newsletter`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

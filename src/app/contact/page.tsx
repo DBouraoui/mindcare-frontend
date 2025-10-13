@@ -5,31 +5,40 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import {Suspense, useState} from "react"
-import {CheckCircle2, Mail} from "lucide-react"
+import { Suspense, useState } from "react"
+import { CheckCircle2, Loader2 } from "lucide-react"
+import { useMutation } from "@tanstack/react-query"
+import { createContact } from "@/api/Contact"
 
 export default function ContactPage() {
     const [form, setForm] = useState({
         title: "",
         email: "",
-        category: "",
+        type: "",
         message: "",
     })
     const [sent, setSent] = useState(false)
+
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({
+        mutationFn: createContact,
+        onSuccess: () => {
+            setSent(true)
+            setForm({ title: "", email: "", type: "", message: "" })
+        },
+    })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
     const handleCategory = (value: string) => {
-        setForm({ ...form, category: value })
+        setForm({ ...form, type: value })
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (form.email && form.message && form.title) {
-            setSent(true)
-            setForm({ title: "", email: "", category: "", message: "" })
+            mutate(form)
         }
     }
 
@@ -73,7 +82,7 @@ export default function ContactPage() {
 
                                 <div>
                                     <label className="block text-sm font-medium mb-2">Type de demande</label>
-                                    <Select onValueChange={handleCategory} value={form.category}>
+                                    <Select onValueChange={handleCategory} value={form.type}>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Choisissez une catégorie" />
                                         </SelectTrigger>
@@ -101,10 +110,16 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="pt-4 text-center">
-                                    <Button type="submit" className="px-8 h-12 text-base">
-                                        Envoyer le message
+                                    <Button type="submit" className="px-8 h-12 text-base" disabled={isPending}>
+                                        {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Envoyer le message"}
                                     </Button>
                                 </div>
+
+                                {isError && (
+                                    <p className="text-red-500 text-center text-sm mt-4">
+                                        Une erreur est survenue : {(error as Error).message}
+                                    </p>
+                                )}
                             </form>
                         </>
                     ) : (
@@ -114,11 +129,7 @@ export default function ContactPage() {
                             <p className="text-muted-foreground max-w-sm">
                                 Merci de nous avoir contactés ! Notre équipe vous répondra dans les plus brefs délais.
                             </p>
-                            <Button
-                                variant="outline"
-                                onClick={() => setSent(false)}
-                                className="mt-6"
-                            >
+                            <Button variant="outline" onClick={() => setSent(false)} className="mt-6">
                                 Envoyer un autre message
                             </Button>
                         </div>
