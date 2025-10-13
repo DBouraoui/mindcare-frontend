@@ -27,7 +27,7 @@ export const PricingSection = ({
                       buttonText = "Commencer l'inscription",
                   }: Pricing6Props) => {
     return (
-        <section className="py-32">
+        <section className="py-32" id="price">
             <div className="container">
                 <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
                     <h2 className="text-pretty text-4xl font-semibold lg:text-6xl">

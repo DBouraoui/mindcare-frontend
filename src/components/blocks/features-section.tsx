@@ -66,7 +66,7 @@ export const FeaturesSection = ({
                        buttonUrl = "https://shadcnblocks.com",
                    }: Feature43Props) => {
     return (
-        <section className="py-32">
+        <section className="py-32" id="features">
             <div className="container">
                 {title && (
                     <div className="mx-auto mb-16 max-w-3xl text-center">

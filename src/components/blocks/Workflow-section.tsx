@@ -39,7 +39,7 @@ export const WorkflowSection = () => {
     }
 
     return (
-        <section className="py-32">
+        <section className="py-32" id="workflow">
             <div className="container">
                 <div className="mx-auto max-w-6xl space-y-12">
                     <div className="space-y-4 text-center">
