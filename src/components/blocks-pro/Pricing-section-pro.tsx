@@ -1,6 +1,9 @@
+"use client"
+
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import {useRouter} from "next/navigation"
 
 interface Pricing6Props {
     heading?: string;
@@ -37,6 +40,11 @@ export const PricingSectionPro = ({
                                       features = defaultFeatures,
                                       buttonText = "Essayer gratuitement 7 jours",
                                   }: Pricing6Props) => {
+    const router = useRouter();
+
+    function handleClick() {
+        router.push("/inscription/pro");
+    }
     return (
         <section className="py-32">
             <div className="container">
@@ -73,7 +81,7 @@ export const PricingSectionPro = ({
                             ))}
                         </div>
 
-                        <Button size="lg" className="w-full text-base font-semibold">
+                        <Button size="lg" className="w-full text-base font-semibold cursor-pointer" onClick={handleClick}>
                             {buttonText}
                         </Button>
 

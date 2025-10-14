@@ -62,7 +62,7 @@ export const WorkflowSectionPro = ({
                                            },
                                        ],
                                        buttonText = "Commencer des à présent",
-                       buttonUrl = "https://shadcnblocks.com",
+                       buttonUrl = "http://localhost:3000/inscription/pro",
                    }: Feature43Props) => {
     return (
         <section className="py-32">

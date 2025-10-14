@@ -29,7 +29,7 @@ export const HeroSectionPro = ({
                     buttons = {
                         primary: {
                             text: "Je commence maintenant",
-                            url: "#",
+                            url: "http://localhost:3000/inscription/pro",
                         },
                     },
                     image = {

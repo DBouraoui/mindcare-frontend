@@ -159,7 +159,7 @@ export default function Home(){
                         <form onSubmit={(e) => {
                             e.preventDefault()
                             form.handleSubmit()
-                        }}className="min-w-xl border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
+                        }}className="mt-20 min-w-xl border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
                             <h1 className="text-xl font-semibold">Mindcare PRO</h1>
                             <p className="text-center text-foreground text-xs">Inscrivez-vous gratuitement et commencez à utiliser votre espace de consultation dès aujourd’hui.</p>
 
@@ -297,7 +297,7 @@ export default function Home(){
                             </section>
 
                             <section className="w-full pt-4 container flex flex-col gap-4">
-                                <h2 className="text-center pb-4">Information Professionel</h2>
+                                <h2 className="text-center pb-4">- Information Professionel - </h2>
 
                                 <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
                                     <form.Field name={"price_pro"} children={(field)=>(

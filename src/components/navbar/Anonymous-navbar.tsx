@@ -107,22 +107,6 @@ export const AnonymousNavbar = () => {
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>Inscription</NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                                <ul className="grid w-[200px] gap-4">
-                                    <li>
-                                        <NavigationMenuLink asChild>
-                                            <Link href="/inscription">Client</Link>
-                                        </NavigationMenuLink>
-                                        <NavigationMenuLink asChild>
-                                            <Link href="/inscription/pro">Pro</Link>
-                                        </NavigationMenuLink>
-                                    </li>
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
-
-                        <NavigationMenuItem>
                             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                 <Link href="/connexion" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors">
                                     Connexion
@@ -274,6 +258,18 @@ export const AnonymousNavbar = () => {
 };
 
 const components: { title: string; href: string; description: string }[] = [
+    {
+        title: "Inscription Client",
+        href: "/inscription",
+        description:
+            "Découvrer nos meilleur praticien sur notre platform",
+    },
+    {
+        title: "Inscription PRO",
+        href: "/inscription/pro",
+        description:
+            "Retrouvez des à présent vos patient sur notre platform",
+    },
     {
         title: "CGV & CGU",
         href: "/cgv-cgu",
