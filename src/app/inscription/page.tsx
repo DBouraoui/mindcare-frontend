@@ -93,7 +93,8 @@ export default function Home(){
                             e.preventDefault()
                             form.handleSubmit()
                         }}className="min-w-md border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
-                            <h1 className="text-xl font-semibold">L'Inscription est gratuite,pour toujours et sans compromis</h1>
+                            <h1 className="text-xl font-semibold">Mindcare</h1>
+                            <p className="text-center text-foreground text-xs">Rejoignez-nous gratuitement et prenez rendez-vous avec vos médecins sans attendre.</p>
 
                             <form.Field name={"email"}
                                         children={(field)=>{
@@ -240,7 +241,7 @@ export default function Home(){
                                 href="/connexion"
                                 className="text-primary font-medium hover:underline"
                             >
-                                Login
+                                 Connexion
                             </a>
                         </div>
                     </div>

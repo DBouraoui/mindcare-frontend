@@ -107,9 +107,25 @@ export const AnonymousNavbar = () => {
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
+                            <NavigationMenuTrigger>Inscription</NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                                <ul className="grid w-[200px] gap-4">
+                                    <li>
+                                        <NavigationMenuLink asChild>
+                                            <Link href="/inscription">Client</Link>
+                                        </NavigationMenuLink>
+                                        <NavigationMenuLink asChild>
+                                            <Link href="/inscription/pro">Pro</Link>
+                                        </NavigationMenuLink>
+                                    </li>
+                                </ul>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+
+                        <NavigationMenuItem>
                             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                <Link href="/pro" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors">
-                                    Professionel
+                                <Link href="/connexion" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors">
+                                    Connexion
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
@@ -208,14 +224,44 @@ export const AnonymousNavbar = () => {
                                                 </div>
                                             </AccordionContent>
                                         </AccordionItem>
+
+                                        <AccordionItem value="Inscription" className="border-none">
+                                            <AccordionTrigger className="text-base font-medium py-3 hover:no-underline hover:bg-accent/50 px-3 rounded-md">
+                                                Inscription
+                                            </AccordionTrigger>
+                                            <AccordionContent className="pb-2">
+                                                <div className="flex flex-col gap-1 mt-1">
+                                                    <Link
+                                                        href="/inscription"
+                                                        className="block text-sm py-2.5 px-3 rounded-md hover:bg-accent transition-colors"
+                                                        onClick={() => setOpen(false)}
+                                                    >
+                                                        <div className="font-medium mb-0.5">Client</div>
+                                                        <p className="text-muted-foreground text-xs leading-relaxed">
+                                                            Vous êtes un client ?
+                                                        </p>
+                                                    </Link>
+                                                    <Link
+                                                        href="/inscription/pro"
+                                                        className="block text-sm py-2.5 px-3 rounded-md hover:bg-accent transition-colors"
+                                                        onClick={() => setOpen(false)}
+                                                    >
+                                                        <div className="font-medium mb-0.5">Pro</div>
+                                                        <p className="text-muted-foreground text-xs leading-relaxed">
+                                                            Vous êtes un Pro ?
+                                                        </p>
+                                                    </Link>
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
                                     </Accordion>
 
                                     <Link
-                                        href="/pro"
+                                        href="/connexion"
                                         className="block text-base font-medium py-3 px-3 hover:bg-accent rounded-md transition-colors"
                                         onClick={() => setOpen(false)}
                                     >
-                                        Professionel
+                                        Connexion
                                     </Link>
                                 </nav>
                             </div>
@@ -264,4 +310,10 @@ const components: { title: string; href: string; description: string }[] = [
         description:
             "Découvrer l'équipe et le projet dérrière mindcare",
     },
+    {
+        title: "Vous êtes professionel ?",
+        href: "/pro",
+        description:
+            "Découvré mindcare PRO, un outils sur mesure conçus pour vous !",
+    }
 ]

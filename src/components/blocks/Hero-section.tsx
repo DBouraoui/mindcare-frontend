@@ -30,11 +30,11 @@ export const HeroSection = ({
                    description = "Prenez soin de votre esprit comme vous prenez soin de votre vie : avec Mindcare, organisez vos journées et cultivez un équilibre mental durable.",
                    button = {
                        text: "Rejoignez nous",
-                       url: "https://www.shadcnblocks.com",
+                       url: "http://localhost:3000/inscription",
                    },
                   callToAction= {
-                       text: "En savoir plus",
-                        url: "https://www.shadcnblocks.com",
+                       text: "Je suis PRO",
+                        url: "http://localhost:3000/pro",
                        },
                    reviews = {
                        count: 200,
