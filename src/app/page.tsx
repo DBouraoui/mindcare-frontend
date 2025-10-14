@@ -1,6 +1,6 @@
 import {AnonymousLayout} from "@/components/layout/Anonymous-layout";
 import {HeroSection} from "@/components/blocks/Hero-section";
-import {FeaturesSection} from "@/components/blocks/features-section";
+import {FeaturesSection} from "@/components/blocks/Features-section";
 import {WorkflowSection} from "@/components/blocks/Workflow-section";
 import {PricingSection} from "@/components/blocks/Price-section";
 import {FaqSection} from "@/components/blocks/Faq-section";

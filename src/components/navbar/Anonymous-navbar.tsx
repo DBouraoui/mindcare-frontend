@@ -108,8 +108,8 @@ export const AnonymousNavbar = () => {
 
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                <Link href="/docs" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors">
-                                    Docs
+                                <Link href="/pro" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors">
+                                    Professionel
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
@@ -211,11 +211,11 @@ export const AnonymousNavbar = () => {
                                     </Accordion>
 
                                     <Link
-                                        href="/docs"
+                                        href="/pro"
                                         className="block text-base font-medium py-3 px-3 hover:bg-accent rounded-md transition-colors"
                                         onClick={() => setOpen(false)}
                                     >
-                                        Docs
+                                        Professionel
                                     </Link>
                                 </nav>
                             </div>

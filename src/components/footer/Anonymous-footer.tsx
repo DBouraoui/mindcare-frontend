@@ -44,6 +44,7 @@ export function AnonymousFooter() {
                             <li><Link href="information" className="hover:text-foreground transition-colors">Qui sommes nous ?</Link></li>
                             <li><Link href="contact" className="hover:text-foreground transition-colors">Nous contacter</Link></li>
                             <li><Link href="newsletter" className="hover:text-foreground transition-colors">Notre newsletter</Link></li>
+                            <li><Link href="pro" className="hover:text-foreground transition-colors">Mindcare PRO</Link></li>
                         </ul>
                     </div>
 
