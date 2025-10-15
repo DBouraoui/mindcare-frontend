@@ -32,7 +32,7 @@ const defaultFeatures = [
     ],
 ];
 
-export const PricingSectionPro = ({
+export  const PricingSectionPro = ({
                                       heading = "Abonnement Mindcare Pro",
                                       description = "Pensé pour les praticiens : une seule plateforme pour gérer vos consultations, patients et revenus en toute simplicité.",
                                       price = 39,

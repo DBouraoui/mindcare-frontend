@@ -1,6 +1,6 @@
 import {AnonymousLayout} from "@/components/layout/Anonymous-layout";
 import {Suspense} from "react";
-import {TeamSection} from "@/components/blocks/Team-section";
+import {TeamSection} from "@/components/blocks-landingpage/Team-section";
 import {Badge} from "@/components/ui/badge"
 
 export default function Home(){
