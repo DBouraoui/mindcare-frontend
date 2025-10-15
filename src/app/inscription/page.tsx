@@ -10,6 +10,7 @@ import {useMutation} from "@tanstack/react-query";
 import {createClient} from "@/api/Register";
 import {RegisterClientModel} from "@/api/models/Register-model";
 import {toast} from "sonner"
+import {Separator} from "@/components/ui/separator";
 
 const schema = z.object({
         email: z
@@ -234,16 +235,20 @@ export default function Home(){
                                     </Button>
                                 )}
                             />
+
+                            <Separator />
+
+                            <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+                                <p>Vous avez déja un compte client ?</p>
+                                <a
+                                    href="/connexion"
+                                    className="text-primary font-medium hover:underline"
+                                >
+                                    Connexion
+                                </a>
+                            </div>
                         </form>
-                        <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-                            <p>Vous avez déja un compte client ?</p>
-                            <a
-                                href="/connexion"
-                                className="text-primary font-medium hover:underline"
-                            >
-                                 Connexion
-                            </a>
-                        </div>
+
                     </div>
                 </div>
             </section>
