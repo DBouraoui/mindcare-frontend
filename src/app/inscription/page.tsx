@@ -11,6 +11,7 @@ import {createClient} from "@/api/Register";
 import {RegisterClientModel} from "@/api/models/Register-model";
 import {toast} from "sonner"
 import {Separator} from "@/components/ui/separator";
+import {Suspense} from "react";
 
 const schema = z.object({
         email: z
@@ -87,171 +88,173 @@ export default function Home(){
 
     return (
         <AnonymousLayout>
-            <section className="h-screen">
-                <div className="flex h-full items-center justify-center">
-                    <div className="flex flex-col items-center gap-6 lg:justify-start">
-                        <form onSubmit={(e) => {
-                            e.preventDefault()
-                            form.handleSubmit()
-                        }}className="min-w-md border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
-                            <h1 className="text-xl font-semibold">Mindcare</h1>
-                            <p className="text-center text-foreground text-xs">Rejoignez-nous gratuitement et prenez rendez-vous avec vos médecins sans attendre.</p>
+            <Suspense>
+                <section className="h-screen">
+                    <div className="flex h-full items-center justify-center">
+                        <div className="flex flex-col items-center gap-6 lg:justify-start">
+                            <form onSubmit={(e) => {
+                                e.preventDefault()
+                                form.handleSubmit()
+                            }}className="min-w-md border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
+                                <h1 className="text-xl font-semibold">Mindcare</h1>
+                                <p className="text-center text-foreground text-xs">Rejoignez-nous gratuitement et prenez rendez-vous avec vos médecins sans attendre.</p>
 
-                            <form.Field name={"email"}
-                                        children={(field)=>{
-                                return (
+                                <form.Field name={"email"}
+                                            children={(field)=>{
+                                                return (
+                                                    <>
+                                                        <Input
+                                                            type="email"
+                                                            placeholder="Email"
+                                                            className="text-sm"
+                                                            onBlur={field.handleBlur}
+                                                            name={field.name}
+                                                            required
+                                                            value={field.state.value}
+                                                            onChange={(e) => field.handleChange(e.target.value)}
+                                                        />
+                                                        <FieldInfo field={field} />
+                                                    </>
+                                                )
+                                            }}>
+                                </form.Field>
+
+                                <form.Field name={"password"} children={(field)=>(
                                     <>
                                         <Input
-                                            type="email"
-                                            placeholder="Email"
+                                            type="password"
+                                            placeholder="Mot de passe"
                                             className="text-sm"
+                                            required
                                             onBlur={field.handleBlur}
                                             name={field.name}
-                                            required
                                             value={field.state.value}
                                             onChange={(e) => field.handleChange(e.target.value)}
                                         />
                                         <FieldInfo field={field} />
                                     </>
-                                    )
-                            }}>
-                            </form.Field>
+                                )}>
+                                </form.Field>
 
-                            <form.Field name={"password"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="password"
-                                        placeholder="Mot de passe"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </>
-                            )}>
-                            </form.Field>
+                                <form.Field name={"password_confirmation"} children={(field)=>(
+                                    <>
+                                        <Input
+                                            type="password"
+                                            placeholder="Confirmation du mot de passe"
+                                            className="text-sm"
+                                            required
+                                            onBlur={field.handleBlur}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                        <FieldInfo field={field} />
+                                    </>
 
-                            <form.Field name={"password_confirmation"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="password"
-                                        placeholder="Confirmation du mot de passe"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </>
+                                )}>
+                                </form.Field>
 
-                            )}>
-                            </form.Field>
+                                <form.Field name={"firstname"} children={(field)=>(
+                                    <>
+                                        <Input
+                                            type="text"
+                                            placeholder="Prénom"
+                                            className="text-sm"
+                                            required
+                                            onBlur={field.handleBlur}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                        <FieldInfo field={field} />
 
-                            <form.Field name={"firstname"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="text"
-                                        placeholder="Prénom"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
+                                    </>
 
-                                </>
+                                )}>
+                                </form.Field>
 
-                            )}>
-                            </form.Field>
+                                <form.Field name={"lastname"} children={(field)=>(
+                                    <>
+                                        <Input
+                                            type="text"
+                                            placeholder="Nom de famille"
+                                            className="text-sm"
+                                            required
+                                            onBlur={field.handleBlur}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                        <FieldInfo field={field} />
 
-                            <form.Field name={"lastname"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="text"
-                                        placeholder="Nom de famille"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
+                                    </>
 
-                                </>
+                                )}>
+                                </form.Field>
 
-                            )}>
-                            </form.Field>
+                                <form.Field name={"city"} children={(field)=>(
+                                    <>
+                                        <Input
+                                            type="text"
+                                            placeholder="Ville actuel"
+                                            className="text-sm"
+                                            required
+                                            onBlur={field.handleBlur}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                        <FieldInfo field={field} />
 
-                            <form.Field name={"city"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="text"
-                                        placeholder="Ville actuel"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
+                                    </>
+                                )}>
+                                </form.Field>
 
-                                </>
-                            )}>
-                            </form.Field>
+                                <form.Field name={"phone"} children={(field)=>(
+                                    <>
+                                        <Input
+                                            type="phone"
+                                            placeholder="Numéro de téléphone"
+                                            className="text-sm"
+                                            required
+                                            onBlur={field.handleBlur}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                        <FieldInfo field={field} />
 
-                            <form.Field name={"phone"} children={(field)=>(
-                               <>
-                                   <Input
-                                       type="phone"
-                                       placeholder="Numéro de téléphone"
-                                       className="text-sm"
-                                       required
-                                       onBlur={field.handleBlur}
-                                       name={field.name}
-                                       value={field.state.value}
-                                       onChange={(e) => field.handleChange(e.target.value)}
-                                   />
-                                   <FieldInfo field={field} />
-
-                               </>
-                            )}>
-                            </form.Field>
+                                    </>
+                                )}>
+                                </form.Field>
 
 
-                            <form.Subscribe
-                                selector={(state) => [state.canSubmit, state.isSubmitting]}
-                                children={([canSubmit, isSubmitting]) => (
-                                    <Button type="submit" disabled={!canSubmit}>
-                                        {isSubmitting ? '...' : 'Créer mon compte'}
-                                    </Button>
-                                )}
-                            />
+                                <form.Subscribe
+                                    selector={(state) => [state.canSubmit, state.isSubmitting]}
+                                    children={([canSubmit, isSubmitting]) => (
+                                        <Button type="submit" disabled={!canSubmit}>
+                                            {isSubmitting ? '...' : 'Créer mon compte'}
+                                        </Button>
+                                    )}
+                                />
 
-                            <Separator />
+                                <Separator />
 
-                            <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-                                <p>Vous avez déja un compte client ?</p>
-                                <a
-                                    href="/connexion"
-                                    className="text-primary font-medium hover:underline"
-                                >
-                                    Connexion
-                                </a>
-                            </div>
-                        </form>
+                                <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+                                    <p>Vous avez déja un compte client ?</p>
+                                    <a
+                                        href="/connexion"
+                                        className="text-primary font-medium hover:underline"
+                                    >
+                                        Connexion
+                                    </a>
+                                </div>
+                            </form>
 
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </Suspense>
         </AnonymousLayout>
 
     );

@@ -9,6 +9,7 @@ import { Suspense, useState } from "react"
 import { CheckCircle2, Loader2 } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
 import { createContact } from "@/api/Contact"
+import {toast} from "sonner";
 
 export default function ContactPage() {
     const [form, setForm] = useState({
@@ -19,7 +20,7 @@ export default function ContactPage() {
     })
     const [sent, setSent] = useState(false)
 
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    const { mutate, isPending,  isError, error } = useMutation({
         mutationFn: createContact,
         onSuccess: () => {
             setSent(true)
@@ -39,6 +40,7 @@ export default function ContactPage() {
         e.preventDefault()
         if (form.email && form.message && form.title) {
             mutate(form)
+            toast.success("Votre message a bien été envoyer, vérifier vos email des à présent")
         }
     }
 

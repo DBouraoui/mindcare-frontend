@@ -7,6 +7,7 @@ import { Suspense, useState } from "react"
 import { CheckCircle2 } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
 import { createNewsLetter } from "@/api/Newsletter"
+import {toast} from "sonner";
 
 export default function NewsletterPage() {
     const [email, setEmail] = useState("")
@@ -19,6 +20,7 @@ export default function NewsletterPage() {
         e.preventDefault()
         if (email.trim()) {
             mutate()
+            toast.success("Votre abbonement à la newsletter a bien été pris en compte")
         }
     }
 

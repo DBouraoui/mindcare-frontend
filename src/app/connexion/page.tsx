@@ -1,4 +1,5 @@
 "use client"
+
 import { Input } from "@/components/ui/input";
 import {AnonymousLayout} from "@/components/layout/Anonymous-layout";
 import {Suspense} from "react";
@@ -8,28 +9,50 @@ import FieldInfo from "@/components/ui/FieldInfo";
 import {Field,FieldLabel} from "@/components/ui/field";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
+import {useMutation} from "@tanstack/react-query";
+import {LoginModel} from "@/api/models/Login-model";
+import {LoginUser} from "@/api/Login";
+import {toast} from "sonner";
+import {Loader2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useAuthStore} from "@/store/useAuthStore";
+import {cookies} from "next/headers";
 
 const schema = z.object({
     email: z.string()
         .email({ message: "L'email doit être une adresse valide." })
+        .nonempty({message: "L'adresse email ne peut pas être vide"})
         .max(155, { message: "L'email ne doit pas dépasser 155 caractères." })
         .trim(),
     password: z.string()
-        .min(8, { message: "Le mot de passe doit contenir au moins 8 caractères." })
+        .nonempty({message: "Le mot de passe ne peut pas être vide"})
         .max(255, { message: "Le mot de passe ne doit pas dépasser 255 caractères." })
         .trim(),
 });
 
 
 export default function Login (){
+    const router = useRouter();
+    const login = useAuthStore((s) => s.login);
+
+    const mutatation = useMutation({
+        mutationFn:(payload : LoginModel)=> LoginUser(payload),
+        onSuccess: (data)=>{
+            toast.success("Vous êtes des à présent connecté")
+            login(data.token);
+            document.cookie = "auth-token="+data.token;
+            router.push("/dashboard");
+        },
+        onError: ()=> toast.error("Email ou mot de passe incorrect")
+    })
 
     const form = useForm({
         defaultValues: {
             email: "",
             password: "",
         },
-        onSubmit: async (values) => {
-            console.log(values);
+        onSubmit: async ({value}) => {
+            mutatation.mutate(value)
         },
         validators: {
             onChange: schema
@@ -47,6 +70,7 @@ export default function Login (){
                                 <p className="text-muted-foreground text-sm text-center">Accéder à votre compte pro ou client </p>
                                <form onSubmit={(e) =>{
                                    e.preventDefault()
+                                   e.stopPropagation()
                                    form.handleSubmit()
                                }} className="w-full flex flex-col items-center gap-6 lg:justify-start">
 
@@ -92,10 +116,9 @@ export default function Login (){
                                        selector={(state) => [state.canSubmit, state.isSubmitting]}
                                        children={([canSubmit, isSubmitting]) => (
                                            <Button type="submit" disabled={!canSubmit} className="cursor-pointer">
-                                               {isSubmitting ? '...' : 'Se connecter'}
+                                               {isSubmitting ? <Loader2 className="animate-spin" /> : 'Se connecter'}
                                            </Button>
                                        )}/>
-
                                    <Separator />
 
                                    <div className="text-muted-foreground flex justify-center gap-1 text-sm">

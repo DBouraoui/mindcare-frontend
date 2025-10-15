@@ -1,7 +1,7 @@
 import {BACKEND_URL} from "@/lib/utils";
 import {LoginModel} from "@/api/models/Login-model";
 
-export const Login = async (payload : LoginModel) => {
+export const LoginUser = async (payload : LoginModel) => {
     const response = await fetch(`${BACKEND_URL}/login_check`, {
         method: 'POST',
         headers: {

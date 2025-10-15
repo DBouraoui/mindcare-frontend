@@ -11,6 +11,7 @@ import {createPro} from "@/api/Register";
 import { RegisterProModel} from "@/api/models/Register-model";
 import {toast} from "sonner"
 import {Separator} from "@/components/ui/separator";
+import {Suspense} from "react";
 
  const schema = z
     .object({
@@ -154,117 +155,42 @@ export default function Home(){
 
     return (
         <AnonymousLayout>
-            <section className="min-h-screen">
-                <div className="flex h-full items-center justify-center">
-                    <div className="flex flex-col items-center gap-6 lg:justify-start">
-                        <form onSubmit={(e) => {
-                            e.preventDefault()
-                            form.handleSubmit()
-                        }} className="min-w-xl border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
-                            <h1 className="text-xl font-semibold">Mindcare PRO</h1>
-                            <p className="text-center text-foreground text-xs">Inscrivez-vous gratuitement et commencez à utiliser votre espace de consultation dès aujourd’hui.</p>
+            <Suspense>
+                <section className="min-h-screen">
+                    <div className="flex h-full items-center justify-center">
+                        <div className="flex flex-col items-center gap-6 lg:justify-start">
+                            <form onSubmit={(e) => {
+                                e.preventDefault()
+                                form.handleSubmit()
+                            }} className="min-w-xl border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
+                                <h1 className="text-xl font-semibold">Mindcare PRO</h1>
+                                <p className="text-center text-foreground text-xs">Inscrivez-vous gratuitement et commencez à utiliser votre espace de consultation dès aujourd’hui.</p>
 
-                            <form.Field name={"email"}
-                                        children={(field)=>{
-                                return (
+                                <form.Field name={"email"}
+                                            children={(field)=>{
+                                                return (
+                                                    <>
+                                                        <Input
+                                                            type="email"
+                                                            placeholder="Email"
+                                                            className="text-sm"
+                                                            onBlur={field.handleBlur}
+                                                            name={field.name}
+                                                            required
+                                                            value={field.state.value}
+                                                            onChange={(e) => field.handleChange(e.target.value)}
+                                                        />
+                                                        <FieldInfo field={field} />
+                                                    </>
+                                                )
+                                            }}>
+                                </form.Field>
+
+                                <form.Field name={"password"} children={(field)=>(
                                     <>
                                         <Input
-                                            type="email"
-                                            placeholder="Email"
-                                            className="text-sm"
-                                            onBlur={field.handleBlur}
-                                            name={field.name}
-                                            required
-                                            value={field.state.value}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                        />
-                                        <FieldInfo field={field} />
-                                    </>
-                                    )
-                            }}>
-                            </form.Field>
-
-                            <form.Field name={"password"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="password"
-                                        placeholder="Mot de passe"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </>
-                            )}>
-                            </form.Field>
-
-                            <form.Field name={"password_confirmation"} children={(field)=>(
-                                <>
-                                    <Input
-                                        type="password"
-                                        placeholder="Confirmation du mot de passe"
-                                        className="text-sm"
-                                        required
-                                        onBlur={field.handleBlur}
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </>
-
-                            )}>
-                            </form.Field>
-
-                           <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                               <form.Field name={"firstname"} children={(field)=>(
-                                   <>
-                                       <Input
-                                           type="text"
-                                           placeholder="Prénom"
-                                           className="text-sm"
-                                           required
-                                           onBlur={field.handleBlur}
-                                           name={field.name}
-                                           value={field.state.value}
-                                           onChange={(e) => field.handleChange(e.target.value)}
-                                       />
-                                       <FieldInfo field={field} />
-
-                                   </>
-
-                               )}>
-                               </form.Field>
-
-                               <form.Field name={"lastname"} children={(field)=>(
-                                   <>
-                                       <Input
-                                           type="text"
-                                           placeholder="Nom de famille"
-                                           className="text-sm"
-                                           required
-                                           onBlur={field.handleBlur}
-                                           name={field.name}
-                                           value={field.state.value}
-                                           onChange={(e) => field.handleChange(e.target.value)}
-                                       />
-                                       <FieldInfo field={field} />
-
-                                   </>
-
-                               )}>
-                               </form.Field>
-                           </section>
-
-                            <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                                <form.Field name={"city"} children={(field)=>(
-                                    <>
-                                        <Input
-                                            type="text"
-                                            placeholder="Ville actuel"
+                                            type="password"
+                                            placeholder="Mot de passe"
                                             className="text-sm"
                                             required
                                             onBlur={field.handleBlur}
@@ -273,16 +199,15 @@ export default function Home(){
                                             onChange={(e) => field.handleChange(e.target.value)}
                                         />
                                         <FieldInfo field={field} />
-
                                     </>
                                 )}>
                                 </form.Field>
 
-                                <form.Field name={"phone"} children={(field)=>(
+                                <form.Field name={"password_confirmation"} children={(field)=>(
                                     <>
                                         <Input
-                                            type="phone"
-                                            placeholder="Numéro de téléphone"
+                                            type="password"
+                                            placeholder="Confirmation du mot de passe"
                                             className="text-sm"
                                             required
                                             onBlur={field.handleBlur}
@@ -291,23 +216,57 @@ export default function Home(){
                                             onChange={(e) => field.handleChange(e.target.value)}
                                         />
                                         <FieldInfo field={field} />
-
                                     </>
+
                                 )}>
                                 </form.Field>
-                            </section>
-
-                            <Separator />
-
-                            <section className="w-full pt-4 container flex flex-col gap-4">
-                                <h2 className="text-center pb-4">Information Professionel </h2>
 
                                 <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                                    <form.Field name={"price_pro"} children={(field)=>(
+                                    <form.Field name={"firstname"} children={(field)=>(
                                         <>
                                             <Input
                                                 type="text"
-                                                placeholder="Tarif horaire"
+                                                placeholder="Prénom"
+                                                className="text-sm"
+                                                required
+                                                onBlur={field.handleBlur}
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                            />
+                                            <FieldInfo field={field} />
+
+                                        </>
+
+                                    )}>
+                                    </form.Field>
+
+                                    <form.Field name={"lastname"} children={(field)=>(
+                                        <>
+                                            <Input
+                                                type="text"
+                                                placeholder="Nom de famille"
+                                                className="text-sm"
+                                                required
+                                                onBlur={field.handleBlur}
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                            />
+                                            <FieldInfo field={field} />
+
+                                        </>
+
+                                    )}>
+                                    </form.Field>
+                                </section>
+
+                                <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
+                                    <form.Field name={"city"} children={(field)=>(
+                                        <>
+                                            <Input
+                                                type="text"
+                                                placeholder="Ville actuel"
                                                 className="text-sm"
                                                 required
                                                 onBlur={field.handleBlur}
@@ -321,11 +280,11 @@ export default function Home(){
                                     )}>
                                     </form.Field>
 
-                                    <form.Field name={"diplome_pro"} children={(field)=>(
+                                    <form.Field name={"phone"} children={(field)=>(
                                         <>
                                             <Input
-                                                type="text"
-                                                placeholder="Votre diplôme actuel"
+                                                type="phone"
+                                                placeholder="Numéro de téléphone"
                                                 className="text-sm"
                                                 required
                                                 onBlur={field.handleBlur}
@@ -340,12 +299,130 @@ export default function Home(){
                                     </form.Field>
                                 </section>
 
-                                <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                                    <form.Field name={"city_pro"} children={(field)=>(
+                                <Separator />
+
+                                <section className="w-full pt-4 container flex flex-col gap-4">
+                                    <h2 className="text-center pb-4">Information Professionel </h2>
+
+                                    <section className=" w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
+                                        <form.Field name={"price_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Tarif horaire"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+
+                                        <form.Field name={"diplome_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Votre diplôme actuel"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+                                    </section>
+
+                                    <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
+                                        <form.Field name={"city_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Quelle ville exercé vous ?"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+
+                                        <form.Field name={"country_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Quelle pays exercé vous ?"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+                                    </section>
+
+                                    <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
+                                        <form.Field name={"phone_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Numéro de téléphone PRO"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+
+                                        <form.Field name={"email_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Email PRO"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+                                    </section>
+
+                                    <form.Field name={"address_pro"} children={(field)=>(
                                         <>
                                             <Input
                                                 type="text"
-                                                placeholder="Quelle ville exercé vous ?"
+                                                placeholder="Votre adresse professionel"
                                                 className="text-sm"
                                                 required
                                                 onBlur={field.handleBlur}
@@ -359,144 +436,70 @@ export default function Home(){
                                     )}>
                                     </form.Field>
 
-                                    <form.Field name={"country_pro"} children={(field)=>(
-                                        <>
-                                            <Input
-                                                type="text"
-                                                placeholder="Quelle pays exercé vous ?"
-                                                className="text-sm"
-                                                required
-                                                onBlur={field.handleBlur}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onChange={(e) => field.handleChange(e.target.value)}
-                                            />
-                                            <FieldInfo field={field} />
+                                    <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
+                                        <form.Field name={"siren_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Numéro de siren"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
 
-                                        </>
-                                    )}>
-                                    </form.Field>
+                                            </>
+                                        )}>
+                                        </form.Field>
+
+                                        <form.Field name={"siret_pro"} children={(field)=>(
+                                            <>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Numéro de siret"
+                                                    className="text-sm"
+                                                    required
+                                                    onBlur={field.handleBlur}
+                                                    name={field.name}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                />
+                                                <FieldInfo field={field} />
+
+                                            </>
+                                        )}>
+                                        </form.Field>
+                                    </section>
+
                                 </section>
 
-                                <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                                    <form.Field name={"phone_pro"} children={(field)=>(
-                                        <>
-                                            <Input
-                                                type="text"
-                                                placeholder="Numéro de téléphone PRO"
-                                                className="text-sm"
-                                                required
-                                                onBlur={field.handleBlur}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onChange={(e) => field.handleChange(e.target.value)}
-                                            />
-                                            <FieldInfo field={field} />
+                                <form.Subscribe
+                                    selector={(state) => [state.canSubmit, state.isSubmitting]}
+                                    children={([canSubmit, isSubmitting]) => (
+                                        <Button type="submit" disabled={!canSubmit}>
+                                            {isSubmitting ? '...' : 'Créer mon compte PRO'}
+                                        </Button>
+                                    )}
+                                />
+                                <Separator />
 
-                                        </>
-                                    )}>
-                                    </form.Field>
-
-                                    <form.Field name={"email_pro"} children={(field)=>(
-                                        <>
-                                            <Input
-                                                type="text"
-                                                placeholder="Email PRO"
-                                                className="text-sm"
-                                                required
-                                                onBlur={field.handleBlur}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onChange={(e) => field.handleChange(e.target.value)}
-                                            />
-                                            <FieldInfo field={field} />
-
-                                        </>
-                                    )}>
-                                    </form.Field>
-                                </section>
-
-                                <form.Field name={"address_pro"} children={(field)=>(
-                                    <>
-                                        <Input
-                                            type="text"
-                                            placeholder="Votre adresse professionel"
-                                            className="text-sm"
-                                            required
-                                            onBlur={field.handleBlur}
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                        />
-                                        <FieldInfo field={field} />
-
-                                    </>
-                                )}>
-                                </form.Field>
-
-                                <section className="w-full flex flex-col lg:flex-row lg:gap-4 gap-2 justify-center items-center">
-                                    <form.Field name={"siren_pro"} children={(field)=>(
-                                        <>
-                                            <Input
-                                                type="text"
-                                                placeholder="Numéro de siren"
-                                                className="text-sm"
-                                                required
-                                                onBlur={field.handleBlur}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onChange={(e) => field.handleChange(e.target.value)}
-                                            />
-                                            <FieldInfo field={field} />
-
-                                        </>
-                                    )}>
-                                    </form.Field>
-
-                                    <form.Field name={"siret_pro"} children={(field)=>(
-                                        <>
-                                            <Input
-                                                type="text"
-                                                placeholder="Numéro de siret"
-                                                className="text-sm"
-                                                required
-                                                onBlur={field.handleBlur}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onChange={(e) => field.handleChange(e.target.value)}
-                                            />
-                                            <FieldInfo field={field} />
-
-                                        </>
-                                    )}>
-                                    </form.Field>
-                                </section>
-
-                            </section>
-
-                            <form.Subscribe
-                                selector={(state) => [state.canSubmit, state.isSubmitting]}
-                                children={([canSubmit, isSubmitting]) => (
-                                    <Button type="submit" disabled={!canSubmit}>
-                                        {isSubmitting ? '...' : 'Créer mon compte PRO'}
-                                    </Button>
-                                )}
-                            />
-                            <Separator />
-
-                            <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-                                <p>Vous avez déja un compte PRO ?</p>
-                                <a
-                                    href="/connexion"
-                                    className="text-primary font-medium hover:underline"
-                                >
-                                    Connexion
-                                </a>
-                            </div>
-                        </form>
+                                <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+                                    <p>Vous avez déja un compte PRO ?</p>
+                                    <a
+                                        href="/connexion"
+                                        className="text-primary font-medium hover:underline"
+                                    >
+                                        Connexion
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </Suspense>
         </AnonymousLayout>
 
     );

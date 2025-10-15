@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-    const token = req.cookies.get('token')?.value;
+    const token = req.cookies.get('auth-token')
 
     if (!token && req.nextUrl.pathname.startsWith('/dashboard')) {
-        const loginUrl = new URL('/login', req.url);
+        const loginUrl = new URL('/connexion', req.url);
         return NextResponse.redirect(loginUrl);
     }
 
