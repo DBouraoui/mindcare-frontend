@@ -4,6 +4,10 @@ import {jwtDecode} from "jwt-decode";
 
 interface DecodedToken {
     username: string;
+    firstname: string;
+    lastname: string;
+    city: string;
+    phone: string;
     roles: string[];
     exp: number;
     iat: number;
@@ -15,6 +19,7 @@ interface AuthState {
     login: (token: string) => void;
     logout: () => void;
     isAuthenticated: () => boolean;
+    getName: () => string;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -45,6 +50,16 @@ export const useAuthStore = create<AuthState>()(
                     return false;
                 }
             },
+
+            getName: ()=>{
+                const token = get().token;
+                if (!token) return "";
+                try {
+                    return get().user?.lastname + " "+ get().user?.firstname;
+                } catch {
+                    return "";
+                }
+            }
         }),
         { name: "auth-storage" }
     )
