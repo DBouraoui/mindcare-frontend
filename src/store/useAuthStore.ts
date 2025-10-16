@@ -50,7 +50,6 @@ export const useAuthStore = create<AuthState>()(
                     return false;
                 }
             },
-
             getName: ()=>{
                 const token = get().token;
                 if (!token) return "";

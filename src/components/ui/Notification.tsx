@@ -107,7 +107,6 @@ export default function Notification() {
                     {!isPending &&
                         data?.map((notif) => {
                             const isRead = !!notif.readAt
-
                             return (
                                 <div
                                     key={notif.id}
@@ -148,6 +147,7 @@ export default function Notification() {
                                         </p>
 
                                         <p className="text-xs text-muted-foreground mt-2">
+                                            {/*@ts-ignore*/}
                                             {formatDistanceToNow(new Date(notif.createdAt), {
                                                 addSuffix: true,
                                                 locale: fr,

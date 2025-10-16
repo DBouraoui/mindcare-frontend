@@ -21,7 +21,8 @@ const eslintConfig = [
     ],
       "rules": {
           "react/no-children-prop": "off",
-          "react/no-unescaped-entities": "off"
+          "react/no-unescaped-entities": "off",
+          "@typescript-eslint/ban-ts-comment": "off"
       }
   },
 ];

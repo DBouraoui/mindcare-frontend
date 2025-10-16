@@ -37,6 +37,7 @@ export default function Login (){
 
     const mutatation = useMutation({
         mutationFn:(payload : LoginModel)=> LoginUser(payload),
+        mutationKey: ['connexion'],
         onSuccess: (data)=>{
             toast.success("Vous êtes des à présent connecté")
             login(data.token);
