@@ -21,6 +21,7 @@ import {cn} from "@/lib/utils";
 import {formatDistanceToNow} from "date-fns";
 import {fr} from "date-fns/locale"
 import { motion } from "framer-motion"
+import {toast} from "sonner";
 
 export default function Notification() {
     const queryClient = useQueryClient()
@@ -34,6 +35,7 @@ export default function Notification() {
         mutationFn: (notificatioId : ReadNotificationModel)=> readNotification(notificatioId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["notification"] })
+            toast.success("Notification validée")
         },
 
         // (optionnel) petit feedback console ou toast
@@ -75,7 +77,7 @@ export default function Notification() {
     return (
         <Drawer direction={"right"} disablePreventScroll={true}>
             <DrawerTrigger asChild>
-                <div className="flex items-center gap-2 cursor-pointer pl-2 text-sm py-2">
+                <div className="flex items-center gap-2 cursor-pointer pl-2 text-sm py-2 hover:bg-accent rounded-md">
                     <BellRing className="text-muted-foreground size-4" />
                     <span>Notifications</span>
                 </div>

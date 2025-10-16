@@ -25,7 +25,6 @@ import {useAuthStore} from "@/store/useAuthStore";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import Notification from "@/components/ui/Notification";
-import {useState} from "react";
 
 export function NavUser({
                             user,
@@ -43,13 +42,16 @@ export function NavUser({
     const { isMobile } = useSidebar()
     const authStore = useAuthStore()
     const router = useRouter();
-    const [isNotifcation, setIsNotifcation] = useState<boolean>(false);
 
     function handleLogOut() {
         authStore.logout();
         toast.warning("Vous êtes actuellement déconnecter");
         document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         router.push("/connexion");
+    }
+
+    function handleProfile() {
+        router.push("/profile");
     }
 
     return (
@@ -96,9 +98,9 @@ export function NavUser({
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={handleProfile}>
                                 <UserCircle />
-                                Informations
+                                Mon profile
                             </DropdownMenuItem>
                             <DropdownMenuItem  asChild>
                                 <Notification  />

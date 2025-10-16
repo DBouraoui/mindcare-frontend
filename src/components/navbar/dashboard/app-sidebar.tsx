@@ -38,6 +38,7 @@ import {useAuthStore} from "@/store/useAuthStore";
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const user = useAuthStore((state) => state.user)
     const store = useAuthStore()
+
     if (!user) {
         return null;
     }
