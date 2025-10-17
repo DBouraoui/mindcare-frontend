@@ -14,7 +14,7 @@ export default function FormFieldT({form, inputName, inputLabel, inputType, plac
                             type={inputType}
                             name={field.name}
                             placeholder={placeHolder}
-                            value={field.state.value}
+                            value={field.state.value ?? ""}
                             onBlur={field.handleBlur}
                             onChange={(e) => field.handleChange(e.target.value)}
                         />

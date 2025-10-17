@@ -12,6 +12,8 @@ import {fr} from "date-fns/locale";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {toast} from "sonner";
 import useGetUserInformations from "@/query/useGetUserInformations";
+import FormFieldT from "@/components/ui/FormFieldT";
+import FormSubmitT from "@/components/ui/FormSubmitT";
 
 export default function InformationSection() {
     const queryClient = useQueryClient();
@@ -128,80 +130,43 @@ export default function InformationSection() {
                         className="space-y-4"
                     >
                         <div className="grid md:grid-cols-2 gap-4">
-                            <form.Field
-                                name="firstname"
-                                children={(field) => (
-                                    <Field>
-                                        <FieldLabel htmlFor={field.name}>Prénom</FieldLabel>
-                                        <Input
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                        />
-                                        <FieldInfo field={field} />
-                                    </Field>
-                                )}
+                            <FormFieldT
+                            form={form}
+                            inputName={"firstname"}
+                            placeHolder={"Prénom"}
+                            inputLabel={"Votre prénom"}
+                            inputType={"text"}
                             />
 
-                            <form.Field
-                                name="lastname"
-                                children={(field) => (
-                                    <Field>
-                                        <FieldLabel htmlFor={field.name}>Nom</FieldLabel>
-                                        <Input
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                        />
-                                        <FieldInfo field={field} />
-                                    </Field>
-                                )}
+                            <FormFieldT
+                                form={form}
+                                inputName={"lastname"}
+                                placeHolder={"Nom de famille"}
+                                inputLabel={"Votre Nom de famille"}
+                                inputType={"text"}
                             />
                         </div>
 
-                        <form.Field
-                            name="city"
-                            children={(field) => (
-                                <Field>
-                                    <FieldLabel htmlFor={field.name}>Ville</FieldLabel>
-                                    <Input
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </Field>
-                            )}
+                        <FormFieldT
+                            form={form}
+                            inputName={"city"}
+                            placeHolder={"Votre ville"}
+                            inputLabel={"Votre ville de résidence"}
+                            inputType={"text"}
                         />
 
-                        <form.Field
-                            name="phone"
-                            children={(field) => (
-                                <Field>
-                                    <FieldLabel htmlFor={field.name}>Téléphone</FieldLabel>
-                                    <Input
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                    />
-                                    <FieldInfo field={field} />
-                                </Field>
-                            )}
+                        <FormFieldT
+                            form={form}
+                            inputName={"phone"}
+                            placeHolder={"06 xx xx xx xx"}
+                            inputLabel={"Numéro de téléphone personelle"}
+                            inputType={"text"}
                         />
 
-                        <form.Subscribe
-                            selector={(state) => [state.canSubmit, state.isSubmitting]}
-                            children={([canSubmit, isSubmitting]) => (
-                                <CardFooter className="pt-4">
-                                    <Button type="submit" disabled={!canSubmit}>
-                                        {isSubmitting ? "..." : "Modifier mes informations"}
-                                    </Button>
-                                </CardFooter>
-                            )}
+                        <FormSubmitT
+                        form={form}
+                        buttonLabel={"Modifier mes informations"}
+                        buttonLabelWaiting={"...."}
                         />
                     </form>
                 </CardContent>

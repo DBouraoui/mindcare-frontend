@@ -12,6 +12,8 @@ import {UserPassword} from "@/api/models/User-model";
 import {updatePasswordUser} from "@/api/User";
 import {toast} from "sonner";
 import {Button} from "@/components/ui/button";
+import FormFieldT from "@/components/ui/FormFieldT";
+import FormSubmitT from "@/components/ui/FormSubmitT";
 
 export default function PasswordSection() {
 
@@ -63,43 +65,21 @@ export default function PasswordSection() {
                 className="space-y-5"
             >
                 {/* Champ : mot de passe */}
-                <form.Field
-                    name="password"
-                    children={(field) => (
-                        <Field>
-                            <FieldLabel htmlFor={field.name}>Nouveau mot de passe</FieldLabel>
-                            <Input
-                                type="password"
-                                id={field.name}
-                                name={field.name}
-                                value={field.state.value}
-                                onBlur={field.handleBlur}
-                                onChange={(e) => field.handleChange(e.target.value)}
-                                placeholder="••••••••"
-                            />
-                            <FieldInfo field={field} />
-                        </Field>
-                    )}
+                <FormFieldT
+                    form={form}
+                    inputName={"password"}
+                    placeHolder={"Mot de passe"}
+                    inputLabel={"Votre nouveau mot de passe"}
+                    inputType={"password"}
                 />
 
                 {/* Champ : confirmation */}
-                <form.Field
-                    name="password_confirmation"
-                    children={(field) => (
-                        <Field>
-                            <FieldLabel htmlFor={field.name}>Confirmation du mot de passe</FieldLabel>
-                            <Input
-                                type="password"
-                                id={field.name}
-                                name={field.name}
-                                value={field.state.value}
-                                onBlur={field.handleBlur}
-                                onChange={(e) => field.handleChange(e.target.value)}
-                                placeholder="••••••••"
-                            />
-                            <FieldInfo field={field} />
-                        </Field>
-                    )}
+                <FormFieldT
+                    form={form}
+                    inputName={"password_confirmation"}
+                    placeHolder={"Mot de passe confirmation"}
+                    inputLabel={"Confirmer votre nouveau mot de passe"}
+                    inputType={"password"}
                 />
 
                 {/* Checkbox : validation */}
@@ -116,17 +96,10 @@ export default function PasswordSection() {
                         </Field>
 
                 {/* Bouton de soumission */}
-                <form.Subscribe
-                    selector={(state) => [state.canSubmit, state.isSubmitting]}
-                    children={([canSubmit, isSubmitting]) => (
-                        <Button
-                            type="submit"
-                            className="w-full"
-                            disabled={!canSubmit}
-                        >
-                            {isSubmitting ? "Mise à jour en cours..." : "Modifier le mot de passe"}
-                        </Button>
-                    )}
+                <FormSubmitT
+                    form={form}
+                    buttonLabel={"Modifier votre mot de passe"}
+                    buttonLabelWaiting={"..."}
                 />
             </form>
         </section>

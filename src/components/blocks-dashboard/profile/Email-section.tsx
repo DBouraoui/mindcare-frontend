@@ -10,6 +10,8 @@ import {UserEmail} from "@/api/models/User-model";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+import FormFieldT from "@/components/ui/FormFieldT";
+import FormSubmitT from "@/components/ui/FormSubmitT";
 
 export default function EmailSection() {
     const { user,logout } = useAuthStore();
@@ -55,38 +57,19 @@ export default function EmailSection() {
                     }}
                     className="space-y-6"
                 >
-                    <form.Field
-                        name="email"
-                        children={(field) => (
-                            <Field>
-                                <FieldLabel htmlFor={field.name}>Nouvelle adresse e-mail</FieldLabel>
-                                <Input
-                                    type="email"
-                                    name={field.name}
-                                    placeholder="exemple@domaine.com"
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                />
-                                <FieldInfo field={field} />
-                            </Field>
-                        )}
-                    />
+                   <FormFieldT
+                       form={form}
+                       inputName={"email"}
+                       inputLabel={"Votre nouvelle adresse e-mail"}
+                       inputType={"email"}
+                       placeHolder={"contact@mindcare.fr"}
+                   />
 
-                    <form.Subscribe
-                        selector={(state) => [state.canSubmit, state.isSubmitting]}
-                        children={([canSubmit, isSubmitting]) => (
-                            <CardFooter className="pt-2">
-                                <Button
-                                    type="submit"
-                                    disabled={!canSubmit}
-                                    className="w-full sm:w-auto"
-                                >
-                                    {isSubmitting ? "Mise à jour..." : "Modifier mon e-mail"}
-                                </Button>
-                            </CardFooter>
-                        )}
-                    />
+                   <FormSubmitT
+                   form={form}
+                   buttonLabel={"Modifier mon e-mail"}
+                   buttonLabelWaiting={"..."}
+                   />
                 </form>
             </CardContent>
         </Card>
