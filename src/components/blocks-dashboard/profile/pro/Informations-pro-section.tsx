@@ -2,7 +2,6 @@
 
 import useGetProInformation from "@/query/useGetProInformation";
 import {useForm} from "@tanstack/react-form";
-import {ProModels} from "@/api/models/Pro-models";
 import FormFieldT from "@/components/ui/FormFieldT";
 import {formatDistanceToNow} from "date-fns";
 import {fr} from "date-fns/locale";
@@ -15,7 +14,7 @@ import MutationUpdateProInformations from "@/mutation/mutationUpdateProInformati
 export default function InformationsProSection(){
     const {data, isLoading , isError } = useGetProInformation();
     const updateProMutation = MutationUpdateProInformations();
-    const form = useForm<ProModels>({
+    const form = useForm({
         defaultValues: {
             id: data?.id,
             userId: data?.userId,
@@ -34,6 +33,7 @@ export default function InformationsProSection(){
             updatedAt: data?.updatedAt,
         },
         onSubmit: ({value})=>{
+            // @ts-ignore
             updateProMutation.mutate(value);
             toast.success("Les informations PRO on bien été mise à jours")
         }

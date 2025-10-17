@@ -7,5 +7,6 @@ export default function useGetUserInformations() {
  return useQuery({
      queryKey: USER_INFORMATION_KEY,
      queryFn: () => getUserInformations()
+
  });
 }

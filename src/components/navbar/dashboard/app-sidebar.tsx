@@ -2,20 +2,14 @@
 
 import * as React from "react"
 import {
-    IconCamera,
-    IconChartBar,
+    IconChartBar, IconClockHour9Filled,
     IconDashboard,
     IconDatabase,
-    IconFileAi,
-    IconFileDescription,
     IconFileWord,
     IconFolder,
-    IconHelp,
     IconInnerShadowTop,
     IconListDetails,
     IconReport,
-    IconSearch,
-    IconSettings,
     IconUsers,
 } from "@tabler/icons-react"
 
@@ -36,12 +30,19 @@ import useGetUserInformations from "@/query/useGetUserInformations";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const {data, isLoading} = useGetUserInformations();
+    const {data, isLoading, isError} = useGetUserInformations();
 
     if (isLoading || !data) {
         return(
         <>
         </>
+        )
+    }
+
+    if (isError) {
+        
+        return (
+            <p>Error</p>
         )
     }
 
@@ -82,71 +83,6 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 icon: IconUsers,
             },
         ],
-        navClouds: [
-            {
-                title: "Capture",
-                icon: IconCamera,
-                isActive: true,
-                url: "#",
-                items: [
-                    {
-                        title: "Active Proposals",
-                        url: "#",
-                    },
-                    {
-                        title: "Archived",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                title: "Proposal",
-                icon: IconFileDescription,
-                url: "#",
-                items: [
-                    {
-                        title: "Active Proposals",
-                        url: "#",
-                    },
-                    {
-                        title: "Archived",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                title: "Prompts",
-                icon: IconFileAi,
-                url: "#",
-                items: [
-                    {
-                        title: "Active Proposals",
-                        url: "#",
-                    },
-                    {
-                        title: "Archived",
-                        url: "#",
-                    },
-                ],
-            },
-        ],
-        navSecondary: [
-            {
-                title: "Settings",
-                url: "#",
-                icon: IconSettings,
-            },
-            {
-                title: "Get Help",
-                url: "#",
-                icon: IconHelp,
-            },
-            {
-                title: "Search",
-                url: "#",
-                icon: IconSearch,
-            },
-        ],
         documents: [
             {
                 name: "Data Library",
@@ -164,6 +100,14 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 icon: IconFileWord,
             },
         ],
+        navSecondary: [
+            {
+                title: "Mes horraires d'ouverture",
+                url: "/dashboard/horraires",
+                icon: IconClockHour9Filled,
+            },
+        ],
+
     }
 
     return (
