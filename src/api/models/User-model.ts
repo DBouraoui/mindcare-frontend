@@ -15,7 +15,7 @@ export interface UserInformationModel {
     city: string;
     phone: string;
     isActive: boolean;
-    isPro: boolean|null;
+    isPro: boolean;
     createdAt: string;
     updatedAt: string;
 }

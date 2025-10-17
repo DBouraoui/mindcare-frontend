@@ -7,7 +7,7 @@ export const getProInformation = async (): Promise<ProModels> => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'authorization': 'Bearer '+getCookie('auth-token')
+            'authorization': 'Bearer '+ getCookie('auth-token')
         }
     })
 

@@ -1,15 +1,11 @@
 import {useForm} from "@tanstack/react-form";
 import {z} from "zod";
-import {Field, FieldLabel} from "@/components/ui/field";
-import {Input} from "@/components/ui/input";
-import FieldInfo from "@/components/ui/FieldInfo";
-import {Button} from "@/components/ui/button";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateInformationUserModel} from "@/api/models/User-model";
 import {updateInformationUser} from "@/api/User";
 import {formatDistanceToNow} from "date-fns";
 import {fr} from "date-fns/locale";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {toast} from "sonner";
 import useGetUserInformations from "@/query/useGetUserInformations";
 import FormFieldT from "@/components/ui/FormFieldT";
@@ -53,11 +49,11 @@ export default function InformationSection() {
     });
 
     if (isLoading) {
-        return <p className="text-sm text-muted-foreground">Chargement des informations...</p>;
+        return <><p></p></>
     }
 
     if (isError || !data) {
-        return <p className="text-sm text-red-500">Impossible de charger les informations.</p>;
+        return <><p></p></>
     }
 
     return (

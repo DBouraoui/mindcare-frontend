@@ -9,7 +9,7 @@ import {
     IconFolder,
     IconInnerShadowTop,
     IconListDetails,
-    IconReport,
+    IconReport, IconUserDollar,
     IconUsers,
 } from "@tabler/icons-react"
 
@@ -27,6 +27,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import useGetUserInformations from "@/query/useGetUserInformations";
+import Link from "next/link";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -40,7 +41,7 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
     }
 
     if (isError) {
-        
+
         return (
             <p>Error</p>
         )
@@ -102,6 +103,11 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         ],
         navSecondary: [
             {
+                title: "Mes informations PRO",
+                url: "/dashboard/profile/pro",
+                icon: IconUserDollar,
+            },
+            {
                 title: "Mes horraires d'ouverture",
                 url: "/dashboard/horraires",
                 icon: IconClockHour9Filled,
@@ -119,10 +125,10 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                             asChild
                             className="data-[slot=sidebar-menu-button]:!p-1.5"
                         >
-                            <a href="/dashboard">
+                            <Link href={'/dashboard'}>
                                 <IconInnerShadowTop className="!size-5" />
                                 <span className="text-base font-semibold">Mindcare</span>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
@@ -130,7 +136,9 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
             <SidebarContent>
                 <NavMain items={data_navbar.navMain} />
                 <NavDocuments items={data_navbar.documents} />
+                {data.isPro && (
                 <NavSecondary items={data_navbar.navSecondary} className="mt-auto" />
+                )}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data_navbar.user} />

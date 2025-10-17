@@ -43,8 +43,8 @@ export default function DisplaySchedules() {
         },
     });
 
-    if (isLoading) return <p>Chargement des horaires...</p>;
-    if (isError || !data) return <p className="text-red-500">Impossible de charger les horaires.</p>;
+    if (isLoading) return <p></p>;
+    if (isError || !data) return <p className="text-red-500"></p>;
 
     const handleEditClick = (schedule: ScheduleProModel) => {
         setSelectedSchedule(schedule);

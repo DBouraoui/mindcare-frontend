@@ -42,7 +42,7 @@ export default function InformationsProSection(){
     if (isLoading || isError || !data) {
         return (
             <>
-                <h2>Pro Information charges...</h2>
+                <p></p>
             </>
         )
     }

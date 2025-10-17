@@ -47,15 +47,11 @@ export function NavUser({
         document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         authStore.logout();
         toast.warning("Vous êtes actuellement déconnecter");
-        router.push("/connexion");
+        router.replace("/connexion");
     }
 
     function handleProfile() {
-        router.push("/dashboard/profile");
-    }
-
-    function handleProfilePro() {
-        router.push("/dashboard/profile/pro");
+        router.replace("/dashboard/profile");
     }
 
     return (
@@ -102,12 +98,6 @@ export function NavUser({
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            {user.isPro && (
-                                <DropdownMenuItem onClick={handleProfilePro}>
-                                    <UserCircle />
-                                   Mes informations PRO
-                                </DropdownMenuItem>
-                            )}
                             <DropdownMenuItem onClick={handleProfile}>
                                 <UserCircle />
                                 Mon profile

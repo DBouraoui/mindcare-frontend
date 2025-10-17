@@ -45,7 +45,9 @@ export default function Login (){
             const expires = new Date(Date.now() + oneHour).toUTCString();
             document.cookie = `auth-token=${data.token}; expires=${expires}; path=/; Secure; SameSite=Strict`;
 
-            router.push("/dashboard");
+            setTimeout(() => {
+                router.push("/dashboard");
+            }, 50);
         },
         onError: ()=> toast.error("Email ou mot de passe incorrect")
     })
