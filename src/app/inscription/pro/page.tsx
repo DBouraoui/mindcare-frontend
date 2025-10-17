@@ -12,6 +12,7 @@ import { RegisterProModel} from "@/api/models/Register-model";
 import {toast} from "sonner"
 import {Separator} from "@/components/ui/separator";
 import {Suspense} from "react";
+import {useRouter} from "next/navigation";
 
  const schema = z
     .object({
@@ -116,6 +117,8 @@ import {Suspense} from "react";
 
 export default function Home(){
 
+     const router = useRouter();
+
     const mutation = useMutation({
         mutationFn: (value: RegisterProModel)=> createPro(value)
     })
@@ -146,7 +149,7 @@ export default function Home(){
             toast.success("L'inscription est un succés, regarder votre boite mail !")
             form.reset();
 
-            //todo rediriger vers la connexion
+            router.push("/connexion");
         },
         validators: {
             onChange: schema,

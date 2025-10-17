@@ -12,6 +12,7 @@ import {RegisterClientModel} from "@/api/models/Register-model";
 import {toast} from "sonner"
 import {Separator} from "@/components/ui/separator";
 import {Suspense} from "react";
+import {useRouter} from "next/navigation";
 
 const schema = z.object({
         email: z
@@ -65,6 +66,8 @@ export default function Home(){
         mutationFn: (value: RegisterClientModel)=> createClient(value)
     })
 
+    const router = useRouter();
+
     const form = useForm({
         defaultValues: {
             email: "",
@@ -79,7 +82,7 @@ export default function Home(){
             mutation.mutate(value);
             toast.success("L'inscription est un succés, regarder votre boite mail !")
             form.reset();
-            //todo rediriger vers la connexion
+            router.push("/connexion");
         },
         validators: {
             onChange: schema,

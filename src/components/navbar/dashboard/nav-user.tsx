@@ -44,9 +44,9 @@ export function NavUser({
     const router = useRouter();
 
     function handleLogOut() {
+        document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         authStore.logout();
         toast.warning("Vous êtes actuellement déconnecter");
-        document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         router.push("/connexion");
     }
 

@@ -41,7 +41,10 @@ export default function Login (){
         onSuccess: (data)=>{
             toast.success("Vous êtes des à présent connecté")
             login(data.token);
-            document.cookie = "auth-token="+data.token;
+            const oneHour = 60 * 60 * 1000; // 1 heure en ms
+            const expires = new Date(Date.now() + oneHour).toUTCString();
+            document.cookie = `auth-token=${data.token}; expires=${expires}; path=/; Secure; SameSite=Strict`;
+
             router.push("/dashboard");
         },
         onError: ()=> toast.error("Email ou mot de passe incorrect")
