@@ -60,7 +60,58 @@ export default function InformationSection() {
 
     return (
         <div className="space-y-8">
-            {/* 🧩 Bloc 1 — Informations de base */}
+            {/* 🧩 Bloc1 — Statut & Historique du compte */}
+            <Card className="shadow-sm border border-border/40">
+                <CardHeader>
+                    <CardTitle className="text-lg font-semibold">Statut du compte</CardTitle>
+                    <CardDescription>Résumé de votre compte utilisateur.</CardDescription>
+                </CardHeader>
+
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Statut actif */}
+                    <div className="flex flex-col gap-1">
+                        <span className="text-sm font-medium text-muted-foreground">Actif :</span>
+                        <span
+                            className={`text-sm font-semibold ${
+                                data?.isActive ? "text-green-600" : "text-red-500"
+                            }`}
+                        >
+        {data?.isActive ? "Oui" : "Non"}
+      </span>
+                    </div>
+
+                    {/* Professionnel */}
+                    <div className="flex flex-col gap-1">
+                        <span className="text-sm font-medium text-muted-foreground">Compte pro :</span>
+                        <span className={`text-sm font-semibold ${data?.isPro ? "text-blue-600" : "text-gray-500"}`}>
+        {data?.isPro ? "Oui" : "Non"}
+      </span>
+                    </div>
+
+                    {/* Création du compte */}
+                    <div className="flex flex-col gap-1">
+                        <span className="text-sm font-medium text-muted-foreground">Créé :</span>
+                        <span className="text-sm font-semibold text-foreground">
+        {data?.createdAt
+            ? formatDistanceToNow(new Date(data.createdAt), { addSuffix: true, locale: fr })
+            : "-"}
+      </span>
+                    </div>
+
+                    {/* Dernière modification */}
+                    <div className="flex flex-col gap-1">
+                        <span className="text-sm font-medium text-muted-foreground">Dernière modification :</span>
+                        <span className="text-sm font-semibold text-foreground">
+        {data?.updatedAt
+            ? formatDistanceToNow(new Date(data.updatedAt), { addSuffix: true, locale: fr })
+            : "-"}
+      </span>
+                    </div>
+                </CardContent>
+            </Card>
+
+
+            {/* 🧩 Bloc 2 — Informations de base */}
             <Card className="shadow-md border border-border/50">
                 <CardHeader>
                     <CardTitle className="text-lg font-semibold">Informations personnelles</CardTitle>
@@ -153,46 +204,6 @@ export default function InformationSection() {
                             )}
                         />
                     </form>
-                </CardContent>
-            </Card>
-
-            {/* 🧩 Bloc 2 — Statut du compte */}
-            <Card className="shadow-sm border border-border/40">
-                <CardHeader>
-                    <CardTitle className="text-lg font-semibold">Statut du compte</CardTitle>
-                    <CardDescription>État actuel de votre compte utilisateur.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                    <p>
-                        <span className="font-medium">Actif :</span>{" "}
-                        <span className={data?.isActive ? "text-green-600 font-semibold" : "text-red-500 font-semibold"}>
-              {data?.isActive ? "Oui" : "Non"}
-            </span>
-                    </p>
-                </CardContent>
-            </Card>
-
-            {/* 🧩 Bloc 3 — Informations système */}
-            <Card className="shadow-sm border border-border/40">
-                <CardHeader>
-                    <CardTitle className="text-lg font-semibold">Historique du compte</CardTitle>
-                    <CardDescription>Détails de création et mise à jour de votre profil.</CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                    <p>
-                        Créé{" "}
-                        <span className="font-medium text-foreground">
-              {/*              @ts-ignore*/}
-              {formatDistanceToNow(new Date(data?.createdAt), { addSuffix: true, locale: fr })}
-            </span>
-                    </p>
-                    <p>
-                        Dernière modification{" "}
-                        <span className="font-medium text-foreground">
-              {/*              @ts-ignore*/}
-              {formatDistanceToNow(new Date(data?.updatedAt), { addSuffix: true, locale: fr })}
-            </span>
-                    </p>
                 </CardContent>
             </Card>
         </div>

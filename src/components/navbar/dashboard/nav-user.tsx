@@ -30,12 +30,13 @@ export function NavUser({
                             user,
                         }: {
     user: {
-        firstname: string
-        lastname: string
-        city: string
-        phone: string
-        email: string
-        avatar: string
+        firstname: string;
+        lastname: string;
+        city: string;
+        phone: string;
+        email: string;
+        isPro: boolean;
+        avatar: string;
     }
 }) {
     const { isMobile } = useSidebar()
@@ -51,6 +52,10 @@ export function NavUser({
 
     function handleProfile() {
         router.push("/dashboard/profile");
+    }
+
+    function handleProfilePro() {
+        router.push("/dashboard/profile/pro");
     }
 
     return (
@@ -97,6 +102,12 @@ export function NavUser({
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
+                            {user.isPro && (
+                                <DropdownMenuItem onClick={handleProfilePro}>
+                                    <UserCircle />
+                                   Mes informations PRO
+                                </DropdownMenuItem>
+                            )}
                             <DropdownMenuItem onClick={handleProfile}>
                                 <UserCircle />
                                 Mon profile

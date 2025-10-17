@@ -41,7 +41,6 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
     if (isLoading || !data) {
         return(
         <>
-            <h2>Je load</h2>
         </>
         )
     }
@@ -53,6 +52,7 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
             lastname: data.lastname,
             city: data.city,
             phone: data.phone,
+            isPro: data.isPro,
             avatar: "/avatars/shadcn.jpg",
         },
         navMain: [

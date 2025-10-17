@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
-import {getNotifications, readNotification} from "@/api/Notification"
-import {NotificationModels, ReadNotificationModel} from "@/api/models/Notification-models."
+import {useMutation, useQueryClient} from "@tanstack/react-query"
+import { readNotification} from "@/api/Notification"
+import { ReadNotificationModel} from "@/api/models/Notification-models."
 import { Button } from "@/components/ui/button"
 import {
     Drawer,
@@ -22,19 +22,17 @@ import {formatDistanceToNow} from "date-fns";
 import {fr} from "date-fns/locale"
 import { motion } from "framer-motion"
 import {toast} from "sonner";
+import useGetNotifications from "@/query/useGetNotifications";
 
 export default function Notification() {
     const queryClient = useQueryClient()
 
-    const { data, isPending } = useQuery({
-        queryKey: ["notification"],
-        queryFn: (): Promise<NotificationModels[]> => getNotifications(),
-    })
+    const { data, isPending } = useGetNotifications()
 
     const mutation = useMutation({
         mutationFn: (notificatioId : ReadNotificationModel)=> readNotification(notificatioId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["notification"] })
+            queryClient.invalidateQueries({ queryKey: ["notifications"] })
             toast.success("Notification validée")
         },
 
