@@ -1,7 +1,9 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, MessageSquare, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro } from "lucide-react";
+import {
+    ArrowLeft, Calendar, MessageSquare, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro,  Star
+} from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { PraticienModel, ScheduleSlotModel } from "@/api/models/Praticien-model";
@@ -9,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import DIsplayMapPraticien from "@/components/blocks-dashboard/praticien/DIsplay-map-praticien";
+import useSaveFavoritePro from "@/query/useSaveFavoritePro";
 
 interface DisplayPraticienProps {
     praticien: PraticienModel;
@@ -26,6 +29,14 @@ const mockSpecialities = ["Thérapie cognitive", "Hypnose", "Gestion du stress",
 
 export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
     const router = useRouter();
+
+    const mutation = useSaveFavoritePro();
+
+    function handleCreateFavoris() {
+        mutation.mutate(praticien.id.toString());
+        praticien.isFavorite = true;
+    }
+
 
     return (
         <main className="max-w-5xl mx-auto px-4 py-8 space-y-6">
@@ -54,15 +65,26 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
             </div>
 
             {/* Actions principales */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <Button size="lg" className="gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <Button size="lg" className="gap-2 cursor-pointer">
                     <Calendar className="w-5 h-5" />
                     Prendre rendez-vous
                 </Button>
-                <Button size="lg" variant="outline" className="gap-2">
+                <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                     <MessageSquare className="w-5 h-5" />
                     Contacter le praticien
                 </Button>
+                {!praticien.isFavorite ? (
+                    <Button size="lg" variant="secondary" className="gap-2 cursor-pointer" onClick={handleCreateFavoris}>
+                        <Star className="w-4 h-4" />
+                        Ajouter au favoris
+                    </Button>
+                ) : (
+                    <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">
+                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        Enregistré
+                    </Button>
+                )}
             </div>
 
             {/* Grid 2 colonnes pour desktop */}

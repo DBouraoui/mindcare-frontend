@@ -33,3 +33,20 @@ export const getPraticienInformation = async (payload: string) => {
 
     return response.json()
 }
+
+export const createFavoritePraticien = async (payload: string) => {
+    const response = await fetch(`${BACKEND_URL}/favorite-pro?proId=`+ encodeURIComponent(payload), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'authorization': `Bearer `+ getCookie('auth-token'),
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error('Erreur lors de la mise en favorie du praticien')
+    }
+
+    return response.json()
+}

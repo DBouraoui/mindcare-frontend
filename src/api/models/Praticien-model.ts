@@ -26,6 +26,7 @@ export interface PraticienModel {
     email: string;
     phone: string;
     title: string;
+    isFavorite?: boolean;
     updatedAt: string;
     createdAt: string;
     horraires: ScheduleSlotModel[];
