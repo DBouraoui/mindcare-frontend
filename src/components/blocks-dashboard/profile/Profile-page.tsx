@@ -7,13 +7,9 @@ import InformationSection from "@/components/blocks-dashboard/profile/Informatio
 export default function ProfilePage() {
     return (
         <>
-            <section className="w-full flex justify-center">
-                <main className="container max-w-4xl flex flex-col gap-6">
                     <InformationSection />
                     <EmailSection />
                     <PasswordSection />
-                </main>
-            </section>
         </>
     )
 }

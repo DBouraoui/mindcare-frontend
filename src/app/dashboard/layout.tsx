@@ -22,7 +22,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                             <div className="@container/main flex flex-1 flex-col gap-2">
                                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                                     <Suspense>
-                                        {children}
+                                        <section className="w-full flex justify-center">
+                                            <main className="container max-w-4xl flex flex-col gap-6">
+                                                {children}
+                                            </main>
+                                        </section>
                                     </Suspense>
                                 </div>
                             </div>

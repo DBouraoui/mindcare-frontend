@@ -16,7 +16,6 @@ import {toast} from "sonner";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useAuthStore} from "@/store/useAuthStore";
-import {cookies} from "next/headers";
 
 const schema = z.object({
     email: z.string()
@@ -140,7 +139,7 @@ export default function Login (){
                                    <div className="text-muted-foreground flex justify-center gap-1 text-sm">
                                        <p>Vous n'avez pas encore de compte PRO ?</p>
                                        <a
-                                           href="/inscription/pro"
+                                           href="/src/app/(anonymous-pages)/inscription/pro"
                                            className="text-primary font-medium hover:underline"
                                        >
                                            Inscription PRO

@@ -25,6 +25,7 @@ import {useAuthStore} from "@/store/useAuthStore";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import Notification from "@/components/ui/Notification";
+import {IconLogs} from "@tabler/icons-react";
 
 export function NavUser({
                             user,
@@ -52,6 +53,10 @@ export function NavUser({
 
     function handleProfile() {
         router.replace("/dashboard/profile");
+    }
+
+    function handleLogs() {
+        router.replace("/dashboard/logs");
     }
 
     return (
@@ -105,7 +110,12 @@ export function NavUser({
                             <DropdownMenuItem  asChild>
                                 <Notification  />
                             </DropdownMenuItem>
+                            <DropdownMenuItem onClick={handleLogs}>
+                                <IconLogs />
+                                Journaux de connexion
+                            </DropdownMenuItem>
                         </DropdownMenuGroup>
+
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={handleLogOut}>
                             <LogOut />

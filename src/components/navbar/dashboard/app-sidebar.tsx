@@ -2,15 +2,11 @@
 
 import * as React from "react"
 import {
-    IconChartBar, IconClockHour9Filled,
+    IconClockHour9Filled,
     IconDashboard,
     IconDatabase,
-    IconFileWord,
-    IconFolder,
-    IconInnerShadowTop,
-    IconListDetails,
-    IconReport, IconUserDollar,
-    IconUsers,
+    IconInnerShadowTop, IconSearch,
+    IconUserDollar,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/navbar/dashboard/nav-documents"
@@ -43,7 +39,7 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
     if (isError) {
 
         return (
-            <p>Error</p>
+            <p></p>
         )
     }
 
@@ -60,45 +56,20 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         navMain: [
             {
                 title: "Dashboard",
-                url: "#",
+                url: "/dashboard",
                 icon: IconDashboard,
             },
             {
-                title: "Lifecycle",
-                url: "#",
-                icon: IconListDetails,
-            },
-            {
-                title: "Analytics",
-                url: "#",
-                icon: IconChartBar,
-            },
-            {
-                title: "Projects",
-                url: "#",
-                icon: IconFolder,
-            },
-            {
-                title: "Team",
-                url: "#",
-                icon: IconUsers,
-            },
+                title: "Rechercher un praticien",
+                url: "/dashboard/recherche",
+                icon: IconSearch,
+            }
         ],
         documents: [
             {
                 name: "Data Library",
                 url: "#",
                 icon: IconDatabase,
-            },
-            {
-                name: "Reports",
-                url: "#",
-                icon: IconReport,
-            },
-            {
-                name: "Word Assistant",
-                url: "#",
-                icon: IconFileWord,
             },
         ],
         navSecondary: [

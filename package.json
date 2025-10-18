@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.545.0",
     "motion": "^12.23.24",
     "next": "15.5.4",

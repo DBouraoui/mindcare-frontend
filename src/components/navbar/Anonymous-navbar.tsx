@@ -226,7 +226,7 @@ export const AnonymousNavbar = () => {
                                                         </p>
                                                     </Link>
                                                     <Link
-                                                        href="/inscription/pro"
+                                                        href="/src/app/(anonymous-pages)/inscription/pro"
                                                         className="block text-sm py-2.5 px-3 rounded-md hover:bg-accent transition-colors"
                                                         onClick={() => setOpen(false)}
                                                     >
