@@ -26,10 +26,10 @@ export default function DisplayMapPraticien({ praticien }: DisplayPraticienProps
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost">
-                    <Map className="mr-2 h-4 w-4" /> Voir sur la carte
+                    <Map className="mr-2 h-4 w-4 cursor-pointer" /> Voir sur la carte
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-3xl w-full">
+            <DialogContent className="sm:max-w-4xl w-full">
                 <DialogHeader>
                     <DialogTitle>Carte du praticien</DialogTitle>
                     <DialogDescription>Retrouvez votre praticien facilement !</DialogDescription>

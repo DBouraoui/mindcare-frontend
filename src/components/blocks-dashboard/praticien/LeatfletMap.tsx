@@ -55,9 +55,11 @@ export default function LeafletMap({ praticien }: LeafletMapProps) {
 
         const map = L.map("mapid", {
             center: [coords.lat, coords.lon],
-            zoom: 14,
-            scrollWheelZoom: false,
+            zoom: 16,
+            scrollWheelZoom: true,
         });
+        map.on("focus", () => map.scrollWheelZoom.enable());
+        map.on("blur", () => map.scrollWheelZoom.disable());
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors",
@@ -69,6 +71,7 @@ export default function LeafletMap({ praticien }: LeafletMapProps) {
       <div>${praticien.address}</div>
       <div>${praticien.city}</div>
       ${praticien.phone ? `<div><b>Téléphone :</b> ${praticien.phone}</div>` : ""}
+      ${praticien.email ? `<div><b>Email :</b> ${praticien.email}</div>` : ""}
     `);
 
         return () => map.remove();
