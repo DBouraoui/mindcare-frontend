@@ -1,8 +1,7 @@
 "use client"
 
-import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react"
+import { type Icon } from "@tabler/icons-react"
 
-import { Button } from "@/components/ui/button"
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -11,6 +10,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
+import {LucideIcon} from "lucide-react";
 
 export function NavMain({
                             items,
@@ -18,7 +18,7 @@ export function NavMain({
     items: {
         title: string
         url: string
-        icon?: Icon
+        icon?: Icon|LucideIcon
     }[]
 }) {
     return (

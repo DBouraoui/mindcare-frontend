@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import DIsplayMapPraticien from "@/components/blocks-dashboard/praticien/DIsplay-map-praticien";
-import useSaveFavoritePro from "@/query/useSaveFavoritePro";
+import useSaveFavoritePro from "@/mutation/useSaveFavoritePro";
+import {toast} from "sonner";
 
 interface DisplayPraticienProps {
     praticien: PraticienModel;
@@ -35,6 +36,7 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
     function handleCreateFavoris() {
         mutation.mutate(praticien.id.toString());
         praticien.isFavorite = true;
+        toast.success("Le praticien a été ajouter aux favoris")
     }
 
 

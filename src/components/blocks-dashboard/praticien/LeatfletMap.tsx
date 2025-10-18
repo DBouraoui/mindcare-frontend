@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+// @ts-ignore
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PraticienModel } from "@/api/models/Praticien-model";

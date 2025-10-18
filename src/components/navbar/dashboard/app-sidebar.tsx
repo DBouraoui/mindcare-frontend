@@ -9,7 +9,6 @@ import {
     IconUserDollar,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/navbar/dashboard/nav-documents"
 import { NavMain } from "@/components/navbar/dashboard/nav-main"
 import { NavSecondary } from "@/components/navbar/dashboard/nav-secondary"
 import { NavUser } from "@/components/navbar/dashboard/nav-user"
@@ -24,6 +23,7 @@ import {
 } from "@/components/ui/sidebar"
 import useGetUserInformations from "@/query/useGetUserInformations";
 import Link from "next/link";
+import {Star} from "lucide-react";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -63,6 +63,11 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 title: "Rechercher un praticien",
                 url: "/dashboard/recherche",
                 icon: IconSearch,
+            },
+            {
+                title: "Mes favoris",
+                url: "/dashboard/favoris",
+                icon: Star,
             }
         ],
         documents: [
@@ -106,7 +111,6 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data_navbar.navMain} />
-                <NavDocuments items={data_navbar.documents} />
                 {data.isPro && (
                 <NavSecondary items={data_navbar.navSecondary} className="mt-auto" />
                 )}

@@ -31,3 +31,14 @@ export interface PraticienModel {
     createdAt: string;
     horraires: ScheduleSlotModel[];
 }
+
+export interface PraticienFavorisModel {
+    id: number;
+    idPro: number;
+    firstname: string;
+    lastname: string;
+    title: string;
+    city: string;
+    address: string;
+    createdAt: string;
+}
