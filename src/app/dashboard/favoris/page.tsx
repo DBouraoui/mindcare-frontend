@@ -70,7 +70,7 @@ export default function FavorisPage() {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <Heart className="w-12 h-12 text-primary/40" />
+                    <Heart className="w-12 h-12 text-primary" />
                 </div>
                 <h2 className="text-2xl font-bold">Aucun favori</h2>
                 <p className="text-muted-foreground text-center max-w-md">
@@ -92,7 +92,7 @@ export default function FavorisPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold flex items-center gap-3">
-                        <Heart className="w-8 h-8 text-primary fill-primary" />
+                        <Heart className="w-8 h-8 text-red-500 fill-red-500" />
                         Mes Favoris
                     </h1>
                     <p className="text-muted-foreground mt-1">
@@ -114,14 +114,14 @@ export default function FavorisPage() {
                         {/* Badge favori */}
                         <div className="absolute top-4 right-4 z-10">
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Heart className="w-5 h-5 text-primary fill-primary" />
+                                <Heart className="w-5 h-5 text-orange-500 fill-orange-500" />
                             </div>
                         </div>
 
                         <CardHeader className="space-y-3">
                             {/* Avatar */}
                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-                                {f.title.charAt(0).toUpperCase()}
+                                {f.firstname.charAt(0).toUpperCase()}{f.lastname.charAt(0).toUpperCase()}
                             </div>
 
                             <div>

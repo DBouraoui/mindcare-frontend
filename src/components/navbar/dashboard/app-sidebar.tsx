@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/sidebar"
 import useGetUserInformations from "@/query/useGetUserInformations";
 import Link from "next/link";
-import {Star} from "lucide-react";
+import {Map, Star} from "lucide-react";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -68,6 +68,11 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 title: "Mes favoris",
                 url: "/dashboard/favoris",
                 icon: Star,
+            },
+            {
+                title: "Carte des praticiens",
+                url: "/dashboard/carte",
+                icon: Map,
             }
         ],
         documents: [

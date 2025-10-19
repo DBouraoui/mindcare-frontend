@@ -18,6 +18,23 @@ export const getPraticienListing = async (payload: string) => {
     return response.json()
 }
 
+export const getAllPraticienListing = async () => {
+    const response = await fetch(`${BACKEND_URL}/get-all-praticien-listing`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'authorization': `Bearer `+ getCookie('auth-token'),
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error('Erreur lors de la récupération du listing des praticien')
+    }
+
+    return response.json()
+}
+
 export const getPraticienInformation = async (payload: string) => {
     const response = await fetch(`${BACKEND_URL}/get-praticien-information/`+ encodeURIComponent(payload), {
         method: 'GET',
