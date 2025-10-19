@@ -33,6 +33,7 @@ export default function DisplayRecherche({ data }: DisplayRechercheProps) {
                                 <CardDescription className="line-clamp-2">
                                     {praticien.description}
                                 </CardDescription>
+                                <p className="text-xs text-foreground underline underline-offset-2">Dr {praticien.lastname} {praticien.firstname}</p>
                             </div>
                             <Link href={`/dashboard/praticien/${praticien.id}`}>
                                 <Button variant="ghost" size="sm" className="shrink-0 cursor-pointer">

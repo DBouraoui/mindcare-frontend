@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Map } from "lucide-react";
 import { PraticienModel } from "@/api/models/Praticien-model";
-
-const LeafletMap = dynamic(() => import("@/components/blocks-dashboard/praticien/LeatfletMap"), { ssr: false });
+import LeafletMap from "@/components/blocks-dashboard/praticien/LeatfletMap";
 
 interface DisplayPraticienProps {
     praticien: PraticienModel;

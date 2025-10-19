@@ -68,6 +68,7 @@ export default function LeafletMap({ praticien }: LeafletMapProps) {
 
         const marker = L.marker([coords.lat, coords.lon]).addTo(map);
         marker.bindPopup(`
+        <div>Dr ${praticien.lastname} ${praticien.firstname}</div>
       <div style="font-weight:bold;">${praticien.title ?? "Praticien"}</div>
       <div>${praticien.address}</div>
       <div>${praticien.city}</div>

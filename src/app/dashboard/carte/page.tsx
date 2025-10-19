@@ -2,11 +2,12 @@
 
 import useGetAllPraticienListing from "@/query/useGetAllPraticienListing";
 import LeafletMap from "@/components/blocks-dashboard/carte/LeatfletMap";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, MapPin } from "lucide-react";
+import {ChevronRight, Loader2, MapPin, User} from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
     const { data = [], isLoading, isError } = useGetAllPraticienListing();
@@ -56,26 +57,40 @@ export default function Home() {
                     ) : (
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {paginatedData.map((p: any) => (
-                                <Card key={p.id} className="hover:shadow-lg transition-all">
+                                <Card className="hover:bg-accent/50 transition-colors" key={p.id}>
                                     <CardHeader>
-                                        <CardTitle className="text-lg font-semibold flex items-center justify-between">
-                                            {p.title ?? "Praticien"}
-                                            <MapPin className="w-4 h-4 text-primary opacity-70" />
-                                        </CardTitle>
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="space-y-1 flex-1">
+                                                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+                                                    <User className="w-3.5 h-3.5" />
+                                                    <span>Dr {p.lastname} {p.firstname}</span>
+                                                </div>
+                                                <CardTitle className="text-xl">
+                                                    {p.title || "Praticien"}
+                                                </CardTitle>
+                                                <CardDescription className="line-clamp-2">
+                                                    {p.description || "Aucune description disponible"}
+                                                </CardDescription>
+                                            </div>
+                                            <Link href={`/dashboard/praticien/${p.id}`}>
+                                                <Button variant="ghost" size="icon" className="shrink-0">
+                                                    <ChevronRight className="w-5 h-5" />
+                                                </Button>
+                                            </Link>
+                                        </div>
                                     </CardHeader>
-                                    <CardContent className="text-sm text-gray-600">
-                                        <p className="mb-1">{p.description ?? "Aucune description"}</p>
-                                        <p className="text-gray-500">
-                                            {p.address}, {p.city}
-                                        </p>
-                                        <div className="mt-3 flex justify-end">
-                                            <Button
-                                                className="cursor-pointer"
-                                                size="sm"
-                                                onClick={() => window.location.href = `/dashboard/praticien/${p.id}`}
-                                            >
-                                                Voir le profil
-                                            </Button>
+
+                                    <CardContent className="space-y-3">
+                                        <Separator />
+                                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                                            <MapPin className="w-4 h-4" />
+                                            <span>{p.city}</span>
+                                            {p.address && (
+                                                <>
+                                                    <span>•</span>
+                                                    <span className="line-clamp-1">{p.address}</span>
+                                                </>
+                                            )}
                                         </div>
                                     </CardContent>
                                 </Card>

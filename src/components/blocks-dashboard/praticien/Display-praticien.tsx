@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    ArrowLeft, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro,  Star
+    ArrowLeft, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro, Star, User
 } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -247,6 +247,12 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
                         </CardHeader>
                         <CardContent className="space-y-3">
                             <div className="flex items-start gap-3">
+                                <User className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                                <p className="text-sm hover:text-primary transition-colors break-all">
+                                    Dr {praticien.lastname} {praticien.firstname}
+                                </p>
+                            </div>
+                            <div className="flex items-start gap-3">
                                 <Mail className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                                 <a href={`mailto:${praticien.email}`} className="text-sm hover:text-primary transition-colors break-all">
                                     {praticien.email}
@@ -323,7 +329,7 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
                             </div>
                             <div>
                                 <span className="text-muted-foreground">SIREN</span>
-                                <p className="font-mono text-xs">{praticien.siren}</p>
+                                <p className="font-mono text-xs">{praticien?.siren}</p>
                             </div>
                         </CardContent>
                     </Card>

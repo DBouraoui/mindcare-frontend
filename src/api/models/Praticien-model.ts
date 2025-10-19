@@ -24,6 +24,8 @@ export interface PraticienModel {
     siren: string;
     siret: string;
     email: string;
+    firstname: string;
+    lastname: string;
     phone: string;
     title: string;
     isFavorite?: boolean;

@@ -17,12 +17,12 @@ L.Icon.Default.mergeOptions({
 });
 
 interface LeafletMapProps {
-    praticiens: Pick<PraticienModel, "id" | "title" | "description" | "city" | "address">[];
+    praticiens: Pick<PraticienModel, "id" | "title" | "description" | "city" | "address" |"lastname" | "firstname">[];
 }
 
 export default function LeafletMap({ praticiens }: LeafletMapProps) {
     const [coordsList, setCoordsList] = useState<
-        { id: number; lat: number; lon: number; title: string; address: string; city: string; description?: string }[]
+        { id: number; lat: number; lon: number; title: string; address: string; city: string; description?: string; lastname: string; firstname: string }[]
     >([]);
     const [loading, setLoading] = useState(true);
 
@@ -44,6 +44,8 @@ export default function LeafletMap({ praticiens }: LeafletMapProps) {
                                 address: p.address,
                                 city: p.city,
                                 description: p.description,
+                                lastname: p.lastname,
+                                firstname: p.firstname,
                             };
                         }
                         return null;
@@ -82,10 +84,13 @@ export default function LeafletMap({ praticiens }: LeafletMapProps) {
         coordsList.forEach((coord) => {
             const marker = L.marker([coord.lat, coord.lon]).addTo(map);
             marker.bindPopup(`
+        <div>Dr ${coord.lastname} ${coord.firstname}</div>
         <div style="font-weight:bold;">${coord.title}</div>
         <div>${coord.address}</div>
         <div>${coord.city}</div>
         ${coord.description ? `<div style="margin-top:4px;font-size:0.85rem;color:#666;">${coord.description}</div>` : ""}
+        <div><a href="/dashboard/praticien/${coord.id}">Voir plus</a></div>
+        
       `);
             bounds.extend([coord.lat, coord.lon]);
         });
