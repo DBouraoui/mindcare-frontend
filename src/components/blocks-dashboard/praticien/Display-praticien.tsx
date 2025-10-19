@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    ArrowLeft, Calendar, MessageSquare, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro,  Star
+    ArrowLeft, MapPin, Mail, Phone, Globe, Clock, CreditCard, Languages, Shield, Award, Euro,  Star
 } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -14,6 +14,7 @@ import DIsplayMapPraticien from "@/components/blocks-dashboard/praticien/DIsplay
 import useSaveFavoritePro from "@/mutation/useSaveFavoritePro";
 import {toast} from "sonner";
 import TakeBooking from "@/components/blocks-dashboard/praticien/Take-booking";
+import CreateConversation from "@/components/blocks-dashboard/praticien/Create-conversation";
 
 interface DisplayPraticienProps {
     praticien: PraticienModel;
@@ -33,6 +34,25 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
     const router = useRouter();
 
     const mutation = useSaveFavoritePro();
+
+    const DAYS_ORDER = [
+        "lundi",
+        "mardi",
+        "mercredi",
+        "jeudi",
+        "vendredi",
+        "samedi",
+        "dimanche",
+    ];
+
+    const sortedHorraires = [...praticien.horraires].sort((a, b) => {
+        const ia = DAYS_ORDER.indexOf(a.day.toLowerCase());
+        const ib = DAYS_ORDER.indexOf(b.day.toLowerCase());
+        // si un jour n'est pas trouvé, on le place à la fin
+        const ra = ia === -1 ? 99 : ia;
+        const rb = ib === -1 ? 99 : ib;
+        return ra - rb;
+    });
 
     function handleCreateFavoris() {
         mutation.mutate(praticien.id.toString());
@@ -70,10 +90,7 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
             {/* Actions principales */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
                 <TakeBooking praticien={praticien} />
-                <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
-                    <MessageSquare className="w-5 h-5" />
-                    Contacter le praticien
-                </Button>
+               <CreateConversation praticien={praticien} />
                 {!praticien.isFavorite ? (
                     <Button size="lg" variant="secondary" className="gap-2 cursor-pointer" onClick={handleCreateFavoris}>
                         <Star className="w-4 h-4" />
@@ -164,41 +181,60 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
-                                {praticien.horraires.map((horaire: ScheduleSlotModel) => (
-                                    <div
-                                        key={horaire.id}
-                                        className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
-                                    >
-                                        <span className="font-medium min-w-[100px]">{horaire.day}</span>
+                                {sortedHorraires.map((horaire: ScheduleSlotModel) => {
+                                    const dayLabel =
+                                        horaire.day.charAt(0).toUpperCase() + horaire.day.slice(1).toLowerCase();
 
-                                        {horaire.closed ? (
-                                            <Badge variant="destructive" className="ml-auto">Fermé</Badge>
-                                        ) : (
-                                            <div className="flex items-center gap-4 text-sm">
-                                                {horaire.morning ? (
-                                                    <span className="text-muted-foreground">
-                                                        {horaire.morning.start}h - {horaire.morning.end}h
-                                                    </span>
-                                                ) : (
-                                                    <span className="text-muted-foreground">-</span>
-                                                )}
-                                                <span className="text-muted-foreground">•</span>
-                                                {horaire.afternoon ? (
-                                                    <span className="text-muted-foreground">
-                                                        {horaire.afternoon.start}h - {horaire.afternoon.end}h
-                                                    </span>
-                                                ) : (
-                                                    <span className="text-muted-foreground">-</span>
-                                                )}
-                                                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 ml-2">
-                                                    Ouvert
-                                                </Badge>
+                                    return (
+                                        <div
+                                            key={horaire.id}
+                                            className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                                        >
+                                            <div className="min-w-[120px]">
+                                                <span className="font-medium">{dayLabel}</span>
                                             </div>
-                                        )}
-                                    </div>
-                                ))}
+
+                                            {horaire.closed ? (
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-sm text-muted-foreground">—</span>
+                                                    <Badge variant="destructive">Fermé</Badge>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-4 text-sm">
+                                                    <div className="flex flex-col">
+                <span className="text-muted-foreground">
+                  Matin:&nbsp;
+                    {horaire.morning ? (
+                        <strong className="text-foreground">
+                            {horaire.morning.start}h - {horaire.morning.end}h
+                        </strong>
+                    ) : (
+                        <span className="text-muted-foreground">—</span>
+                    )}
+                </span>
+                                                        <span className="text-muted-foreground mt-1">
+                  Après-midi:&nbsp;
+                                                            {horaire.afternoon ? (
+                                                                <strong className="text-foreground">
+                                                                    {horaire.afternoon.start}h - {horaire.afternoon.end}h
+                                                                </strong>
+                                                            ) : (
+                                                                <span className="text-muted-foreground">—</span>
+                                                            )}
+                </span>
+                                                    </div>
+
+                                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 ml-2">
+                                                        Ouvert
+                                                    </Badge>
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </CardContent>
+
                     </Card>
                 </div>
 

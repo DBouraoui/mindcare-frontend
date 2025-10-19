@@ -23,28 +23,26 @@ export default function Page() {
 
     return (
         <>
-            <header className="w-full py-12 text-center">
-                <div className="max-w-2xl mx-auto space-y-6">
-                    <div>
-                        <h1 className="text-4xl font-bold tracking-tight">MindCare</h1>
-                        <p className="text-muted-foreground mt-2 text-lg">
-                            Trouvez le praticien qui vous correspond, près de chez vous 🧘‍♀️
+            <header className="border-b">
+                <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+                    <div className="space-y-2">
+                        <h1 className="text-3xl font-bold tracking-tight">MindCare</h1>
+                        <p className="text-muted-foreground">
+                            Trouvez le praticien qui vous correspond
                         </p>
-                        <p className="text-muted-foreground text-xs">Chercher par ville, adresse, diplome, ou titre</p>
                     </div>
 
-                    <div className="flex items-center gap-2 bg-background p-2 rounded-lg shadow-sm border max-w-lg mx-auto">
-                        <Input
-                            type="text"
-                            placeholder="Rechercher un praticien, une spécialité..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="flex-1 border-0 focus-visible:ring-0"
-                        />
-                        <Button size="sm" className="gap-2" disabled={!searchTerm}>
-                            <Search className="w-4 h-4" />
-                            Rechercher
-                        </Button>
+                    <div className="flex gap-2 max-w-xl">
+                        <div className="relative flex-1">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            <Input
+                                type="text"
+                                placeholder="Rechercher par ville, spécialité, diplôme..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="pl-9"
+                            />
+                        </div>
                     </div>
                 </div>
             </header>

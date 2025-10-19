@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/sidebar"
 import useGetUserInformations from "@/query/useGetUserInformations";
 import Link from "next/link";
-import {Map, Star} from "lucide-react";
+import {Map, MessageCircle, Star, Timer} from "lucide-react";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -55,7 +55,7 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         },
         navMain: [
             {
-                title: "Dashboard",
+                title: "Tableau de bord",
                 url: "/dashboard",
                 icon: IconDashboard,
             },
@@ -73,6 +73,16 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 title: "Carte des praticiens",
                 url: "/dashboard/carte",
                 icon: Map,
+            },
+            {
+                title: "Mes rendez-vous",
+                url: "/dashboard/booking",
+                icon: Timer,
+            },
+            {
+                title: "Mes messages",
+                url: "/dashboard/messages",
+                icon: MessageCircle,
             }
         ],
         documents: [
