@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import DIsplayMapPraticien from "@/components/blocks-dashboard/praticien/DIsplay-map-praticien";
 import useSaveFavoritePro from "@/mutation/useSaveFavoritePro";
 import {toast} from "sonner";
+import TakeBooking from "@/components/blocks-dashboard/praticien/Take-booking";
 
 interface DisplayPraticienProps {
     praticien: PraticienModel;
@@ -41,7 +42,7 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
 
 
     return (
-        <main className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+        <main className="w-full mx-auto px-4 py-8 space-y-6">
             {/* Header avec retour */}
             <div className="flex items-center gap-4">
                 <Button
@@ -67,11 +68,8 @@ export default function DisplayPraticien({ praticien }: DisplayPraticienProps) {
             </div>
 
             {/* Actions principales */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <Button size="lg" className="gap-2 cursor-pointer">
-                    <Calendar className="w-5 h-5" />
-                    Prendre rendez-vous
-                </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+                <TakeBooking praticien={praticien} />
                 <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                     <MessageSquare className="w-5 h-5" />
                     Contacter le praticien

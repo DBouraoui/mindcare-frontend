@@ -42,3 +42,11 @@ export interface PraticienFavorisModel {
     address: string;
     createdAt: string;
 }
+
+
+export interface PraticienRDVModel {
+    proId: string;
+    startAt: string;
+    endAt: string;
+    note: string;
+}

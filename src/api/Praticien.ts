@@ -1,5 +1,5 @@
 import {BACKEND_URL, getCookie} from "@/lib/utils";
-import {PraticienFavorisModel} from "@/api/models/Praticien-model";
+import {PraticienFavorisModel, PraticienRDVModel} from "@/api/models/Praticien-model";
 
 export const getPraticienListing = async (payload: string) => {
     const response = await fetch(`${BACKEND_URL}/get-praticien-listing?query=`+ encodeURIComponent(payload), {
@@ -111,6 +111,24 @@ export const removePraticienFavoriteById = async (payload :string) => {
             'Accept': 'application/json',
             'authorization': `Bearer `+ getCookie('auth-token'),
         }
+    })
+
+    if (!response.ok) {
+        throw new Error('Erreur lors de la suppression du favorie')
+    }
+
+    return response.json()
+}
+
+export const createBookingWithPraticien = async (payload :PraticienRDVModel) => {
+    const response = await fetch(`${BACKEND_URL}/create-booking`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'authorization': `Bearer `+ getCookie('auth-token'),
+        },
+        body: JSON.stringify(payload),
     })
 
     if (!response.ok) {
