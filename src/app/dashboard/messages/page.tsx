@@ -133,7 +133,7 @@ export default function ConversationPage() {
 
                                     {/* Composant ConversationMessage */}
                                     <div className="shrink-0">
-                                        <ConversationMessage conversationId={conv.id} />
+                                        <ConversationMessage conversationId={conv.id} convPersonne={conv.lastname+" "+conv.firstname} />
                                     </div>
                                 </div>
                             </CardContent>

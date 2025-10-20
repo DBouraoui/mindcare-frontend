@@ -1,7 +1,7 @@
 "use client"
 
 import {
-    AlertDialog,
+    AlertDialog, AlertDialogCancel,
     AlertDialogContent,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Send, MessageSquare } from "lucide-react";
+import {Send, MessageSquare, X} from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -19,7 +19,7 @@ import { fr } from "date-fns/locale";
 import useGetAllMessage from "@/query/useGetAllMessage";
 import MutationSendMessage from "@/mutation/mutationSendMessage";
 
-export default function ConversationMessage({ conversationId }: { conversationId: string }) {
+export default function ConversationMessage({ conversationId, convPersonne } : { conversationId: string, convPersonne: string }) {
     const { data, isLoading, isError } = useGetAllMessage(conversationId);
     const mutation = MutationSendMessage(conversationId);
 
@@ -53,11 +53,14 @@ export default function ConversationMessage({ conversationId }: { conversationId
                 </Button>
             </AlertDialogTrigger>
 
-            <AlertDialogContent className="max-w-2xl h-[80vh] flex flex-col p-0 overflow-hidden">
-                <AlertDialogHeader className="border-b px-6 py-4 bg-muted/50">
+            <AlertDialogContent className="w-full h-[80vh] flex flex-col p-0 overflow-hidden">
+                <AlertDialogHeader className=" w-full border-b px-6 py-4 bg-muted/50 flex flex-row items-center justify-between">
                     <AlertDialogTitle className="text-lg font-semibold">
-                        Conversation #{conversationId}
+                        Conversation avec {convPersonne}
                     </AlertDialogTitle>
+                    <AlertDialogCancel>
+                        <X className="w-4 h-4" />
+                    </AlertDialogCancel>
                 </AlertDialogHeader>
 
                 {/* Zone des messages */}
