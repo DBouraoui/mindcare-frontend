@@ -20,6 +20,15 @@ export default function Page() {
         });
     }
 
+    function formatToLocal(dateString: string) {
+        const date = new Date(dateString);
+
+        const hours = date.getUTCHours().toString().padStart(2, "0");
+        const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+
+        return `${hours}:${minutes}`;
+    }
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -71,8 +80,7 @@ export default function Page() {
                             <div className="flex items-center gap-2">
                                 <Clock className="w-4 h-4 text-orange-500" />
                                 <span>
-                  {format(new Date(booking.startAt), "HH:mm")} -{" "}
-                                    {format(new Date(booking.endAt), "HH:mm")}
+                  {formatToLocal(booking.startAt)} - {formatToLocal(booking.endAt)}
                 </span>
                             </div>
 

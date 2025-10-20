@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PraticienModel } from "@/api/models/Praticien-model";
-import {Button} from "@/components/ui/button";
-import {Eye} from "lucide-react";
 
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
