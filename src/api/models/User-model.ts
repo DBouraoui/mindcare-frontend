@@ -30,3 +30,10 @@ export interface updateInformationUserModel {
     city: string;
     phone: string;
 }
+
+export interface DashboardInformationModel {
+    bookingFutur: number;
+    bookingPast: number;
+    praticianFavorite: number;
+    newsletter: boolean;
+}
