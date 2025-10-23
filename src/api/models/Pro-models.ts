@@ -39,3 +39,19 @@ export interface UpdateScheduleProModel {
     afternoonEnd: string;
     closed: boolean;
 }
+
+export interface BookingProModel {
+    id: number;
+    pro: number;
+    user: {
+        id: number;
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+    };
+    startAt: string;
+    endAt: string;
+    note: string;
+    status: "pending" | "confirmed" | "cancelled" | "done";
+}

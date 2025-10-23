@@ -70,3 +70,37 @@ export const updateProSchedulesInformations = async (payload: UpdateScheduleProM
 
     return response.json()
 }
+
+export const getAllBooking = async () => {
+    const response = await fetch(`${BACKEND_URL}/get-all-booking`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'authorization': 'Bearer '+getCookie('auth-token')
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des RDV')
+    }
+
+    return response.json()
+}
+
+export const updateBookingStatus = async ({id, status} : {id: string, status: string}) => {
+    const response = await fetch(`${BACKEND_URL}/validate-booking/`+encodeURIComponent(id)+'/'+encodeURIComponent(status), {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'authorization': 'Bearer '+getCookie('auth-token')
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error('Erreur lors de la mise a jours du rdv')
+    }
+
+    return response.json()
+}

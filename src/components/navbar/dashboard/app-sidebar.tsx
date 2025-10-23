@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import {
+    IconCamera,
     IconClockHour9Filled,
     IconDashboard,
     IconDatabase,
@@ -24,6 +25,7 @@ import {
 import useGetUserInformations from "@/query/useGetUserInformations";
 import Link from "next/link";
 import {Map, MessageCircle, Star, Timer} from "lucide-react";
+import {NavDocuments} from "@/components/navbar/dashboard/nav-documents";
 
 
 export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -87,8 +89,8 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         ],
         documents: [
             {
-                name: "Data Library",
-                url: "#",
+                name: "Mes rendez-vous",
+                url: "/dashboard/booking-pro",
                 icon: IconDatabase,
             },
         ],
@@ -104,7 +106,6 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 icon: IconClockHour9Filled,
             },
         ],
-
     }
 
     return (
@@ -126,6 +127,9 @@ export  function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data_navbar.navMain} />
+                {data.isPro && (
+                <NavDocuments items={data_navbar.documents} />
+                )}
                 {data.isPro && (
                 <NavSecondary items={data_navbar.navSecondary} className="mt-auto" />
                 )}

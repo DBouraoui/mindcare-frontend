@@ -12,4 +12,5 @@ export interface BookingProModel {
     endAt: string;
     createdAt: string;
     note?: string | null;
+    status: "pending" | "confirmed" | "done" | "cancelled";
 }

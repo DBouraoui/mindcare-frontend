@@ -6,10 +6,13 @@ import { Loader2, CalendarDays, History, Heart, Mail } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import {useRouter} from "next/navigation";
+import {toast} from "sonner";
+import MutationCreateNewsletter from "@/mutation/mutationCreateNewsletter";
 
 export default function Metrics() {
     const { data, isLoading, isError } = useGetDashboardInformation();
     const router = useRouter();
+    const mutation = MutationCreateNewsletter();
 
     if (isLoading) {
         return (
@@ -33,6 +36,12 @@ export default function Metrics() {
 
     function handleFavorite() {
         router.replace("/dashboard/favoris");
+    }
+
+
+    function handleUpdateNewsletter() {
+        mutation.mutate();
+        toast.success("Votre abonnement a la newslettr a bien été mis à jours")
     }
 
     return (
@@ -94,7 +103,7 @@ export default function Metrics() {
                 </Card>
 
                 {/* Newsletter */}
-                <Card className="shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                <Card className="shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer" onClick={handleUpdateNewsletter}>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground">
                             Newsletter
@@ -102,7 +111,7 @@ export default function Metrics() {
                         <Mail className="w-5 h-5 text-green-500" />
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between" >
                             {data.newsletter ? (
                                 <Badge variant="outline" className="bg-green-100 text-green-700 border-green-200">
                                     Abonné
