@@ -21,13 +21,16 @@ import {
     StickyNote,
     XCircle,
     CheckCircle2,
-    TimerOff,
+    TimerOff, FileText,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import BookingHeader from "@/components/blocks-dashboard/booking/Booking-header";
+import jsPDF from "jspdf";
+import useGetUserInformations from "@/query/useGetUserInformations";
 
 export default function Page() {
     const { data, isLoading, isError } = useGetBooking();
+    const {data: userData} = useGetUserInformations();
     const mutation = MutationDeleteBooking();
 
     function handleDeleteBooking(id: string) {
@@ -59,6 +62,123 @@ export default function Page() {
             </div>
         );
     }
+
+    function generatePDF(booking, userData) {
+        const doc = new jsPDF();
+
+        // === En-tête principale ===
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("Facture de consultation médicale", 20, 20);
+
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Facture n° : ${booking.id}`, 20, 26);
+        doc.text(`Date d’émission : ${format(new Date(), "dd/MM/yyyy")}`, 150, 26);
+
+        // === Informations du praticien ===
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("Émis par :", 20, 40);
+
+        doc.setFont("helvetica", "normal");
+        doc.text(`${booking.pro.firstname} ${booking.pro.lastname}`, 20, 47);
+        if (booking.pro.address) doc.text(`${booking.pro.address}`, 20, 54);
+        if (booking.pro.city) doc.text(`${booking.pro.city}`, 20, 61);
+        if (booking.pro.siren) doc.text(`SIREN : ${booking.pro.siren}`, 20, 68);
+        if (booking.pro.siret) doc.text(`SIRET : ${booking.pro.siret}`, 20, 75);
+
+        // === Informations du patient ===
+        doc.setFont("helvetica", "bold");
+        doc.text("Destinataire :", 120, 40);
+
+        doc.setFont("helvetica", "normal");
+        doc.text(`${userData?.firstname ?? ""} ${userData?.lastname ?? ""}`, 120, 47);
+        if (userData?.email) doc.text(`${userData.email}`, 120, 54);
+
+        // === Séparation visuelle ===
+        doc.line(20, 85, 190, 85);
+
+        // === Détails du rendez-vous ===
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("Détails du rendez-vous", 20, 95);
+
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        doc.text(
+            `Date : ${format(new Date(booking.startAt), "EEEE d MMMM yyyy", { locale: fr })}`,
+            20,
+            105
+        );
+        doc.text(
+            `Heure : ${format(new Date(booking.startAt), "HH:mm", { locale: fr })} - ${format(
+                new Date(booking.endAt),
+                "HH:mm",
+                { locale: fr }
+            )}`,
+            20,
+            112
+        );
+
+        // === Calculs tarifaires ===
+        const tarif = booking.pro.price || 60; // par défaut 60€
+        const secuRate = 0.70; // 70% Sécurité sociale
+        const mutuelleRate = 0.25; // 25% Mutuelle
+        const secu = tarif * secuRate;
+        const mutuelle = tarif * mutuelleRate;
+        const restant = tarif - (secu + mutuelle); // ce qui reste au patient
+
+        doc.text(`Durée : 30 minutes`, 20, 120);
+        doc.text(`Tarif de la consultation : ${tarif.toFixed(2)} €`, 20, 127);
+        doc.text(`Pris en charge par la Sécurité sociale : ${secu.toFixed(2)} €`, 20, 134);
+        doc.text(`Pris en charge par la Mutuelle : ${mutuelle.toFixed(2)} €`, 20, 141);
+        doc.text(`Reste à charge patient : ${restant.toFixed(2)} €`, 20, 148);
+
+        if (booking.note) {
+            doc.setFont("helvetica", "italic");
+            doc.text("Note du praticien :", 20, 162);
+            doc.text(booking.note, 20, 169, { maxWidth: 170 });
+        }
+
+        // === Séparation avant le total ===
+        doc.line(20, 185, 190, 185);
+
+        // === Bloc du total ===
+        doc.setFillColor(240, 240, 240);
+        doc.rect(20, 190, 170, 15, "F");
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("TOTAL À PAYER :", 30, 200);
+
+        doc.setFontSize(16);
+        doc.text(`${tarif.toFixed(2)} €`, 185, 200, { align: "right" });
+
+        // === Mode de paiement et mentions ===
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        doc.text("Mode de paiement : Carte bancaire", 20, 220);
+        doc.text(
+            "Acte remboursable dans le cadre du parcours de soins coordonnés.",
+            20,
+            228
+        );
+
+        // === Pied de page ===
+        doc.line(20, 270, 190, 270);
+        doc.setFontSize(10);
+        doc.text(
+            "Ce document fait office de facture. Merci pour votre confiance.",
+            20,
+            280
+        );
+        doc.text("Mindcare © 2025", 190, 280, { align: "right" });
+
+        // === Téléchargement ===
+        doc.save(`facture-${booking.id}.pdf`);
+    }
+
 
     return (
         <div className="space-y-6">
@@ -202,10 +322,15 @@ export default function Page() {
                                             )}
                                         </Button>
                                     ) : (
-                                        <span className="text-xs text-gray-400 italic flex items-center gap-1">
-          <TimerOff className="w-3.5 h-3.5" />
-          RDV dépassé
-        </span>
+                                        <Button
+                                            variant="outline"
+                                            className="flex items-center gap-2 text-sm"
+                                            onClick={() => generatePDF(booking, userData)}
+                                        >
+                                            <FileText className="w-4 h-4" />
+                                            Facture
+                                        </Button>
+
                                     )}
                                 </div>
                             </CardContent>
